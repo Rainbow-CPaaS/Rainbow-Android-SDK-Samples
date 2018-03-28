@@ -5,5 +5,4 @@ This sample uses the Rainbow SDK for Android to demonstrate how to manage conver
 
 To install this application, clone this repository and then, build and run it with Android Studio on your android mobile phone.
 
-
-To install this app demo which uses the android sdk, you should use your android studio and install it on your android mobile phone.
+You must have a valid Rainbow account on sandbox to be able to login and test.
