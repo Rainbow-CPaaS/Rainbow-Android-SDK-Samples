@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ListView
+        android:id="@+id/list_view_files_shared"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/relative_layout_switch"/>
+
+    <RelativeLayout
+        android:id="@+id/relative_layout_switch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/text_view_switch_sent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/switch_sent_received"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="Sent"/>
+
+        <Switch
+            android:id="@+id/switch_sent_received"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/text_view_switch_received"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/switch_sent_received"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:text="Received"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
