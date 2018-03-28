@@ -1,4 +1,4 @@
-## Rainbow-Android-SDK-Sample-AudioAndVideoUsingWebRTC
+## Rainbow-Android-SDK-Samples / WebRTC
 ---
 
 This sample uses the Rainbow SDK for Android to demonstrate how to make an audio and / or a video call using the webRTC library provided by Google.
