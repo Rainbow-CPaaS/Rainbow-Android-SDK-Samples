@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="visible">
+
+        <ImageView
+            android:id="@+id/photo_image_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="12dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/contact"
+            />
+
+    </android.support.v7.widget.CardView>
+
+    <org.webrtc.SurfaceViewRenderer
+        android:id="@+id/big_video_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+    <org.webrtc.SurfaceViewRenderer
+        android:id="@+id/little_video_view"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentRight="true"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/outgoing_call_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/card_view_photo"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/hangup_call_button"
+            android:layout_width="@dimen/button"
+            android:layout_height="@dimen/button"
+            android:layout_weight="1"
+            android:src="@drawable/bt_dropaudio_active" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="@dimen/text_size"
+            android:layout_weight="1"
+            android:text="@string/you_are_calling"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/incoming_call_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/card_view_photo"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/answer_audio_button"
+                android:layout_width="@dimen/button"
+                android:layout_height="@dimen/button"
+                android:layout_weight="1"
+                android:src="@drawable/bt_call_audio"/>
+
+            <ImageView
+                android:id="@+id/answer_video_button"
+                android:layout_width="@dimen/button"
+                android:layout_height="@dimen/button"
+                android:layout_weight="1"
+                android:src="@drawable/bt_answercall_video_active"/>
+
+            <ImageView
+                android:id="@+id/reject_call_button"
+                android:layout_width="@dimen/button"
+                android:layout_height="@dimen/button"
+                android:layout_weight="1"
+                android:src="@drawable/bt_drop_active"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="@dimen/text_size"
+            android:text="@string/is_calling_you"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/ongoing_call_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/card_view_photo"
+        android:animateLayoutChanges="true"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/hang_up_image_view"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/switch_camera_button"
+                android:layout_width="@dimen/button"
+                android:layout_height="@dimen/button"
+                android:layout_weight="1"
+                android:src="@drawable/btn_switch_camera"/>
+
+            <ImageView
+                android:id="@+id/mute_image_button"
+                android:layout_width="@dimen/button"
+                android:layout_height="@dimen/button"
+                android:layout_weight="1"
+                android:src="@drawable/btn_mic_off"/>
+
+            <ImageView
+                android:id="@+id/add_video_button"
+                android:layout_width="@dimen/button"
+                android:layout_height="@dimen/button"
+                android:layout_weight="1"
+                android:src="@drawable/btn_camera_off"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/hang_up_image_view"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:background="@android:color/holo_red_dark"
+            android:src="@drawable/ic_call_end_white_24dp"
+            android:text="@string/hang_up"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/state_mic_off"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/state_mic_off"
+        android:visibility="gone"/>
+
+</RelativeLayout>

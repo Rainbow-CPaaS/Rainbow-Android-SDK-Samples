@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">WebRTC application sample</string>
+    <string name="topic_app">Rainbow SDK for Android</string>
+
+    <string name="exit">exit</string>
+    <string name="make_call_audio">Audio call</string>
+    <string name="hangup_audio_call">hangup audio call</string>
+    <string name="take_call_audio">take call audio</string>
+    <string name="reject_call">Reject call</string>
+    <string name="make_call_video">make call video</string>
+    <string name="take_video_call">take video call</string>
+    <string name="switch_camera">switch camera</string>
+
+    <string name="you_are_calling">You are calling...</string>
+    <string name="is_calling_you">Is calling you...</string>
+    <string name="hang_up">HANG UP</string>
+</resources>
