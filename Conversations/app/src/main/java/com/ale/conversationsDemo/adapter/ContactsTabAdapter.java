@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ale.conversationsDemo.activity.StartupActivity;
 import com.ale.infra.contact.IRainbowContact;
 import com.ale.infra.contact.RainbowPresence;
 import com.ale.infra.list.ArrayItemList;
@@ -94,8 +95,15 @@ public class ContactsTabAdapter extends BaseAdapter {
     }
 
     public void updateContacts() {
-        m_roster = RainbowSdk.instance().contacts().getRainbowContacts();
-        notifyDataSetChanged();
+        if (m_context instanceof StartupActivity) {
+            ((StartupActivity)m_context).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    m_roster.replaceAll(RainbowSdk.instance().contacts().getRainbowContacts().getCopyOfDataList());
+                    notifyDataSetChanged();
+                }
+            });
+        }
     }
 
     private class MyViewHolder {

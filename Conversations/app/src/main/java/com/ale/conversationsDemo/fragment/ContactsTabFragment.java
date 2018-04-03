@@ -121,7 +121,7 @@ public class ContactsTabFragment extends Fragment implements Contact.ContactList
      * Listen to all rainbow contacts
      */
     private void registerAllContacts() {
-        for (IRainbowContact contact : RainbowSdk.instance().contacts().getRainbowContacts().getItems()) {
+        for (IRainbowContact contact : RainbowSdk.instance().contacts().getRainbowContacts().getCopyOfDataList()) {
             contact.registerChangeListener(this);
         }
     }
@@ -130,7 +130,7 @@ public class ContactsTabFragment extends Fragment implements Contact.ContactList
      * Unregister all contacts
      */
     private void unregisterAllContacts() {
-        for (IRainbowContact contact : RainbowSdk.instance().contacts().getRainbowContacts().getItems()) {
+        for (IRainbowContact contact : RainbowSdk.instance().contacts().getRainbowContacts().getCopyOfDataList()) {
             contact.unregisterChangeListener(this);
         }
     }
