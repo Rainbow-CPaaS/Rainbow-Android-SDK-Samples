@@ -15,3 +15,6 @@ Ringtones used as example:
 
 - Incoming: "Phone Ringing" recorded by **acclivity** ([found here](http://soundbible.com/1518-Phone-Ringing.html))
 - Outgoing: "Ringing phone" recorded by **Mike Koenig** ([found here](http://soundbible.com/1868-Ringing-Phone.html))
+
+---
+_Last updated April, 03th 2018_
