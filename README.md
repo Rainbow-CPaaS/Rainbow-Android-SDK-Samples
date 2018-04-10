@@ -1,3 +1,7 @@
+![Rainbow](images/logo_rainbow.png) ![Rainbow](images/logo_ale.png)
+
+# Rainbow SDK for Android
+
 # Rainbow-Android-SDK-Samples
 ---
 
