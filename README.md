@@ -1,8 +1,8 @@
-![Rainbow](images/logo_rainbow.png) ![Rainbow](images/logo_ale.png)
+![Rainbow](images/logo_rainbow.png)
 
 # Rainbow SDK for Android
 
-# Rainbow-Android-SDK-Samples
+## Rainbow-Android-SDK-Samples
 ---
 
 Three samples which demonstrate the uses of the Rainbow SDK for Android are provided :
