@@ -3,8 +3,6 @@ package com.contacts;
 import android.app.Application;
 import android.graphics.Color;
 
-import com.ale.infra.proxy.conversation.IRainbowConversation;
-import com.ale.listener.IRainbowGetConversationListener;
 import com.ale.rainbowsdk.RainbowSdk;
 import com.contacts.activities.StartupActivity;
 
