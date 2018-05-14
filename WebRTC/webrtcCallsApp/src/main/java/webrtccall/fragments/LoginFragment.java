@@ -75,7 +75,7 @@ public class LoginFragment extends Fragment {
                         m_activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(m_activity, "Sign in failed: " + errorCode, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(m_activity, "Sign in failed: " + s, Toast.LENGTH_SHORT).show();
                             }
                         });
                     }

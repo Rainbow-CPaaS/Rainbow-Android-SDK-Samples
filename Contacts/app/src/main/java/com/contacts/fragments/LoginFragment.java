@@ -61,7 +61,12 @@ public class LoginFragment extends Fragment {
 
                             @Override
                             public void onRequestFailed(RainbowSdk.ErrorCode errorCode, String s) {
-                                // Something goes wrong
+                                m_activity.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(m_activity, "Signin failed: " + s, Toast.LENGTH_LONG).show();
+                                    }
+                                });
                             }
                         });
                     }
