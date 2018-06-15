@@ -140,11 +140,6 @@ public class StartupActivity extends AppCompatActivity {
             public void onSignoutSucceeded() {
                 finish();
             }
-
-            @Override
-            public void onRequestFailed(RainbowSdk.ErrorCode errorCode, String s) {
-                Log.getLogger().info(TAG, "Failed to signout");
-            }
         });
     }
 
