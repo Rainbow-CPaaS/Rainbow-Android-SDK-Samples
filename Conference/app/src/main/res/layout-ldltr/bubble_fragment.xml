@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/label_not_conf_owner"
+        android:textColor="@color/colorPrimary"
+        android:text="@string/user_not_conf_owner"
+        android:visibility="gone"
+        android:gravity="center"/>
+
+    <Button
+        android:id="@+id/start_conference"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/color_blue"
+        android:layout_gravity="center"
+        android:text="@string/start_conference"
+        android:textColor="#FFFFFF"
+        android:layout_margin="10dp"
+        android:visibility="invisible"/>
+
+    <Button
+        android:id="@+id/stop_conference"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/color_blue"
+        android:layout_gravity="center"
+        android:text="@string/stop_conference"
+        android:textColor="#FFFFFF"
+        android:layout_margin="10dp"
+        android:visibility="invisible"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/conf_started"
+        android:textColor="@color/colorPrimary"
+        android:text="@string/conf_started_label"
+        android:visibility="gone"
+        android:layout_gravity="center"/>
+
+    <Button
+        android:id="@+id/join_conference"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/color_blue"
+        android:layout_gravity="center"
+        android:text="@string/join_conference"
+        android:textColor="#FFFFFF"
+        android:layout_margin="10dp"
+        android:visibility="invisible"/>
+
+</LinearLayout>

@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">SfuDemo</string>
+    <string name="exit">exit</string>
+    <string name="bubbles">Bubbles</string>
+    <string name="bubble_name">Bubble name</string>
+    <string name="open">open</string>
+    <string name="create_conference">Create conference</string>
+    <string name="start_conference">start conference</string>
+    <string name="stop_conference">stop conference</string>
+    <string name="user_not_conf_owner">You are not the owner of this bubble. So you can\'t start the conference?</string>
+    <string name="conf_started_label">The conference is started...</string>
+    <string name="join_conference">join conference</string>
+</resources>
