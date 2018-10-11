@@ -94,10 +94,6 @@ public class StartupActivity extends AppCompatActivity {
                             finish();
                         }
 
-                        @Override
-                        public void onRequestFailed(RainbowSdk.ErrorCode errorCode, String s) {
-
-                        }
                     });
                     return true;
                 } else {

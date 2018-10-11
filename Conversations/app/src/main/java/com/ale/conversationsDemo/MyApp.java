@@ -21,15 +21,9 @@ public class MyApp extends Application {
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
 
-        RainbowSdk.instance().setNotificationBuilder(getApplicationContext(),
-                                                    StartupActivity.class,
-                                                    R.drawable.biz_on_status,
-                                                    getString(R.string.app_name),
-                                                    getString(R.string.connect_to_rainbow),
-                                                    Color.RED);
 
 		String applicationId = "YOUR APPLICATION IDENTIFIER";
         String applicationSecret = "YOUR APPLICATION SECRET";
-        RainbowSdk.instance().initialize(applicationId, applicationSecret);
+        RainbowSdk.instance().initialize(this, applicationId, applicationSecret);
     }
 }

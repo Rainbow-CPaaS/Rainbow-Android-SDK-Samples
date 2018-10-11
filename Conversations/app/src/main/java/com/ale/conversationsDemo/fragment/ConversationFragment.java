@@ -195,9 +195,10 @@ public class ConversationFragment extends Fragment implements IRainbowImListener
                 }
 
                 @Override
-                public void onUploadFailed(RainbowServiceException exception) {
+                public void onUploadFailed(RainbowFileDescriptor rainbowFileDescriptor, RainbowServiceException e) {
 
                 }
+
             });
         } else {
             super.onActivityResult(requestCode, resultCode, data);

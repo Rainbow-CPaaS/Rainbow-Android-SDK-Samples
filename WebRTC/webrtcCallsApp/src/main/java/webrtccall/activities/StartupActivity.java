@@ -58,10 +58,6 @@ public class StartupActivity  extends AppCompatActivity implements ITelephonyLis
                 finish();
             }
 
-            @Override
-            public void onRequestFailed(RainbowSdk.ErrorCode errorCode, String s) {
-                Log.getLogger().info(TAG, "Failed to signout");
-            }
         });
     }
 
@@ -155,10 +151,10 @@ public class StartupActivity  extends AppCompatActivity implements ITelephonyLis
             if (allPermissionsGranted) {
                 switch (requestCode) {
                     case REQUEST_MAKE_AUDIO_CALL:
-                        RainbowSdk.instance().webRTC().makeCall((Contact)m_lastOpenedContact, false);
+                        RainbowSdk.instance().webRTC().makeCall((Contact)m_lastOpenedContact, false, null);
                         break;
                     case REQUEST_MAKE_VIDEO_CALL:
-                        RainbowSdk.instance().webRTC().makeCall((Contact)m_lastOpenedContact, true);
+                        RainbowSdk.instance().webRTC().makeCall((Contact)m_lastOpenedContact, true, null);
                         break;
                     case REQUEST_TAKE_AUDIO_CALL:
                         RainbowSdk.instance().webRTC().takeCall(false);
