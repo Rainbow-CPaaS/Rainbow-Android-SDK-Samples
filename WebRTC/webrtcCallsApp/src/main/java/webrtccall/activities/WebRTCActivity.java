@@ -232,17 +232,17 @@ public class WebRTCActivity extends Activity implements ITelephonyListener {
             @Override
             public void onClick(View v) {
                 m_localVideoOnLittleView = !m_localVideoOnLittleView;
-                Map<PeerSession.PeerSessionType, List<MediaStream>> streams = RainbowSdk.instance().webRTC().getAddedStreams();
-                if (streams.containsKey(PeerSession.PeerSessionType.AUDIO_VIDEO_SHARING)) {
-                    List<MediaStream> streamList = streams.get(PeerSession.PeerSessionType.AUDIO_VIDEO_SHARING);
+                List<MediaStream> streams = RainbowSdk.instance().webRTC().getStreams(PeerSession.PeerSessionType.AUDIO_VIDEO_SHARING);
+                if (streams.size() > 0) {
                     if (m_localVideoOnLittleView) {
-                        renderRemoteVideo(streamList.get(0), m_bigVideoView);
+                        renderRemoteVideo(streams.get(0), m_bigVideoView);
                         renderLocalVideo(RainbowSdk.instance().webRTC().getLocalVideoTrack(), m_littleVideoView);
                     } else {
-                        renderRemoteVideo(streamList.get(0), m_littleVideoView);
+                        renderRemoteVideo(streams.get(0), m_littleVideoView);
                         renderLocalVideo(RainbowSdk.instance().webRTC().getLocalVideoTrack(), m_bigVideoView);
                     }
                 }
+
 
             }
         });
@@ -343,15 +343,13 @@ public class WebRTCActivity extends Activity implements ITelephonyListener {
                     m_littleVideoView.setVisibility(call.wasInitiatedWithVideo() ? View.VISIBLE : View.GONE);
                 }
                 //m_localVideoOnLittleView = !m_localVideoOnLittleView;
-                Map<PeerSession.PeerSessionType, List<MediaStream>> streams = RainbowSdk.instance().webRTC().getAddedStreams();
-                if (streams.containsKey(PeerSession.PeerSessionType.AUDIO_VIDEO_SHARING)) {
-                    List<MediaStream> streamList = streams.get(PeerSession.PeerSessionType.AUDIO_VIDEO_SHARING);
+                List<MediaStream> streams = RainbowSdk.instance().webRTC().getStreams(PeerSession.PeerSessionType.AUDIO_VIDEO_SHARING);
+                if (streams.size() > 0) {
                     if (m_localVideoOnLittleView) {
-
-                        renderRemoteVideo(streamList.get(0), m_bigVideoView);
+                        renderRemoteVideo(streams.get(0), m_bigVideoView);
                         renderLocalVideo(RainbowSdk.instance().webRTC().getLocalVideoTrack(), m_littleVideoView);
                     } else {
-                        renderRemoteVideo(streamList.get(0), m_littleVideoView);
+                        renderRemoteVideo(streams.get(0), m_littleVideoView);
                         renderLocalVideo(RainbowSdk.instance().webRTC().getLocalVideoTrack(), m_bigVideoView);
                     }
                 }
