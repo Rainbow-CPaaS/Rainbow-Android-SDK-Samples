@@ -11,6 +11,7 @@ Three samples which demonstrate the uses of the Rainbow SDK for Android are prov
 - **[Contacts](Contacts)** (manage list of contacts and make a native call to a contact)
 - **[Conference](Conference)** (list the bubbles and start a audio call)
 - **[WebRTC](WebRTC)** (make or take audio and/or video call)
+- **[Channels](Channels)** (manage channels, create new channels and messages)
 
 You must have a valid Rainbow account on sandbox to be able to login and test.
 

@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Channels application sample</string>
+    <string name="your_email_address">Your email address</string>
+    <string name="your_password">Your password</string>
+    <string name="action_sign_in">Sign in</string>
+
+    <!-- Strings related to channels -->
+    <string name="channels">Channels</string>
+    <string name="channel">Channel</string>
+    <string name="create_new_post">Create new post</string>
+    <string name="empty_message">Message is empty</string>
+    <string name="message_sent">Publish message success</string>
+    <string name="message_fail">Publish message failed</string>
+    <string name="channel_created">New channel created</string>
+    <string name="channel_fail">New channel creation failed</string>
+</resources>
