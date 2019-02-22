@@ -9,6 +9,7 @@ Three samples which demonstrate the uses of the Rainbow SDK for Android are prov
 
 - **[Conversations](Conversations)** (manage list of conversations - chat and bubbles)
 - **[Contacts](Contacts)** (manage list of contacts and make a native call to a contact)
+- **[Conference](Conference)** (list the bubbles and start a audio call)
 - **[WebRTC](WebRTC)** (make or take audio and/or video call)
 
 You must have a valid Rainbow account on sandbox to be able to login and test.
@@ -18,6 +19,5 @@ If you have this error (Unknown application or wrong token for application id YO
 To know how can you have an application id and an application secret, please refer to [hub.openrainbow.com].
 
 
-
 ---
-_Last updated April, 10th 2018_
+_Last updated February, 22th 2018_

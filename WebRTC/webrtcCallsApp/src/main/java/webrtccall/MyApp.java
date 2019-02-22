@@ -10,8 +10,7 @@ import webrtccall.callapplication.R;
 
 public class MyApp extends Application {
     @Override
-    public void onCreate()
-    {
+    public void onCreate() {
         super.onCreate();
 
         String applicationId = "YOUR APPLICATION IDENTIFIER";

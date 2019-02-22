@@ -10,10 +10,8 @@ import com.ale.rainbowsdk.RainbowSdk;
 public class MyApp extends Application {
 
     @Override
-    public void onCreate()
-    {
+    public void onCreate() {
         super.onCreate();
-
 
         String applicationId = "YOUR APPLICATION IDENTIFIER";
         String applicationSecret = "YOUR APPLICATION SECRET";
