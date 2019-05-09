@@ -1,13 +1,14 @@
 package com.ale.channelsdemo.adapters;
 
 import android.graphics.Bitmap;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.ale.channelsdemo.R;
 import com.ale.channelsdemo.activities.StartupActivity;
@@ -56,7 +57,7 @@ public class ChannelsAdapter extends RecyclerView.Adapter<ChannelsAdapter.Channe
         public void bind(Channel channel) {
             String name = channel.getDisplayName("no channel name");
             String category = channel.getCategory();
-            String topic = channel.getTopic();
+            String topic = channel.getDescription();
             int subscribersCount = channel.getNbSubscriberUsers();
             Bitmap avatar = channel.getChannelAvatar();
 

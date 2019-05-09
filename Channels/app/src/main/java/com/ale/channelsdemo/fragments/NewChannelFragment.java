@@ -60,33 +60,39 @@ public class NewChannelFragment extends Fragment {
 
     private void createNewChannel() {
         String name = ((EditText) m_activity.findViewById(R.id.newchannel_name)).getText().toString();
-        String topic = ((EditText) m_activity.findViewById(R.id.newchannel_topic)).getText().toString();
+        String description = ((EditText) m_activity.findViewById(R.id.newchannel_topic)).getText().toString();
         String category = ((EditText) m_activity.findViewById(R.id.newchannel_category)).getText().toString();
-        int modeId = ((RadioGroup) m_activity.findViewById(R.id.newchannel_mode_radiogroup)).getCheckedRadioButtonId();
-        boolean autoProvisioning = ((CheckBox) m_activity.findViewById(R.id.newchannel_autoprovisioning)).isChecked();
+        int channelMode = ((RadioGroup) m_activity.findViewById(R.id.newchannel_mode_radiogroup)).getCheckedRadioButtonId();
 
-        Channel.ChannelMode mode = Channel.ChannelMode.COMPANY_PUBLIC;
-        if (modeId == R.id.newchannel_mode_company_private) {
-            mode = Channel.ChannelMode.COMPANY_PRIVATE;
-        } else if (modeId == R.id.newchannel_mode_company_closed) {
-            mode = Channel.ChannelMode.COMPANY_CLOSED;
-        } else if (modeId == R.id.newchannel_mode_all_public) {
-            mode = Channel.ChannelMode.ALL_PUBLIC;
-        } else if (modeId == R.id.newchannel_mode_all_private) {
-            mode = Channel.ChannelMode.COMPANY_PRIVATE;
+        if (channelMode == R.id.newchannel_mode_company_closed) {
+            boolean autoProvisioning = ((CheckBox) m_activity.findViewById(R.id.newchannel_autoprovisioning)).isChecked();
+            RainbowSdk.instance().channels().createClosedChannel(name, description, category, autoProvisioning,100, new IChannelProxy.IChannelCreateListener() {
+                @Override
+                public void onCreateSuccess(Channel channel) {
+                    m_activity.runOnUiThread(() -> Toast.makeText(m_activity, R.string.channel_created, Toast.LENGTH_SHORT).show());
+                    getFragmentManager().popBackStack();
+                }
+
+                @Override
+                public void onCreateFailed(RainbowServiceException exception) {
+                    m_activity.runOnUiThread(() -> Toast.makeText(m_activity, R.string.channel_fail, Toast.LENGTH_SHORT).show());
+                }
+            });
+        } else {
+            RainbowSdk.instance().channels().createPublicChannel(name, description, category, 100, new IChannelProxy.IChannelCreateListener() {
+                @Override
+                public void onCreateSuccess(Channel channel) {
+                    m_activity.runOnUiThread(() -> Toast.makeText(m_activity, R.string.channel_created, Toast.LENGTH_SHORT).show());
+                    getFragmentManager().popBackStack();
+                }
+
+                @Override
+                public void onCreateFailed(RainbowServiceException exception) {
+                    m_activity.runOnUiThread(() -> Toast.makeText(m_activity, R.string.channel_fail, Toast.LENGTH_SHORT).show());
+                }
+            });
         }
 
-        RainbowSdk.instance().channels().createChannel(name, topic, mode, category, autoProvisioning, 0, 0, new IChannelProxy.IChannelCreateListener() {
-            @Override
-            public void onCreateSuccess(Channel channel) {
-                m_activity.runOnUiThread(() -> Toast.makeText(m_activity, R.string.channel_created, Toast.LENGTH_SHORT).show());
-                getFragmentManager().popBackStack();
-            }
 
-            @Override
-            public void onCreateFailed(RainbowServiceException exception) {
-                m_activity.runOnUiThread(() -> Toast.makeText(m_activity, R.string.channel_fail, Toast.LENGTH_SHORT).show());
-            }
-        });
     }
 }

@@ -16,6 +16,7 @@ import com.ale.channelsdemo.R;
 import com.ale.channelsdemo.activities.StartupActivity;
 import com.ale.infra.http.adapter.concurrent.RainbowServiceException;
 import com.ale.infra.manager.channel.Channel;
+import com.ale.infra.manager.channel.ChannelItem;
 import com.ale.infra.proxy.channel.IChannelProxy;
 import com.ale.rainbowsdk.RainbowSdk;
 
@@ -24,13 +25,13 @@ public class NewChannelItemFragment extends Fragment {
     private StartupActivity m_activity;
     private Channel channel;
 
-    private static final String ARG_CHANNEL_NAME = "Arg1";
+    private static final String ARG_CHANNEL_ID = "Arg1";
 
     public static NewChannelItemFragment newInstance(Channel channel) {
         NewChannelItemFragment newChannelItemFragment = new NewChannelItemFragment();
         newChannelItemFragment.setHasOptionsMenu(true);
         Bundle args = new Bundle();
-        args.putString(ARG_CHANNEL_NAME, channel.getName());
+        args.putString(ARG_CHANNEL_ID, channel.getId());
         newChannelItemFragment.setArguments(args);
         return newChannelItemFragment;
     }
@@ -42,8 +43,8 @@ public class NewChannelItemFragment extends Fragment {
         m_activity = (StartupActivity) getActivity();
 
         if (getArguments() != null) {
-            String channelName = getArguments().getString(ARG_CHANNEL_NAME);
-            channel = RainbowSdk.instance().channels().getChannelByName(channelName);
+            String channelId = getArguments().getString(ARG_CHANNEL_ID);
+            channel = RainbowSdk.instance().channels().getChannel(channelId);
         }
     }
 
@@ -63,15 +64,15 @@ public class NewChannelItemFragment extends Fragment {
         if (item.getItemId() == R.id.action_create) {
             Editable message = ((EditText) m_activity.findViewById(R.id.new_channelitem_body)).getText();
             if (message != null && !message.toString().isEmpty()) {
-                RainbowSdk.instance().channels().publishMessage(channel, message.toString(), "", "", "", "", null, new IChannelProxy.IChannelPublishMessageListener() {
+                RainbowSdk.instance().channels().createItem(channel, message.toString(), ChannelItem.ItemType.BASIC, "", "", new IChannelProxy.IChannelCreateItemListener() {
                     @Override
-                    public void onPublishMessageSuccess(String status) {
+                    public void onCreateMessageItemSuccess(String status) {
                         m_activity.runOnUiThread(() -> Toast.makeText(m_activity, R.string.message_sent, Toast.LENGTH_SHORT).show());
                         getFragmentManager().popBackStack();
                     }
 
                     @Override
-                    public void onPublishMessageFailed(RainbowServiceException exception) {
+                    public void onCreateMessageItemFailed(RainbowServiceException exception) {
                         m_activity.runOnUiThread(() -> Toast.makeText(m_activity, R.string.message_fail, Toast.LENGTH_SHORT).show());
                     }
                 });

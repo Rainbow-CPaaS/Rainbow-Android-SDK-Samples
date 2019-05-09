@@ -3,10 +3,11 @@ package com.ale.channelsdemo.activities;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.ale.channelsdemo.R;
 import com.ale.channelsdemo.fragments.ChannelDetailFragment;

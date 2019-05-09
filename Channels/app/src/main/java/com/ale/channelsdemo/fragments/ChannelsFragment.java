@@ -2,12 +2,12 @@ package com.ale.channelsdemo.fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.ale.channelsdemo.R;
 import com.ale.channelsdemo.activities.StartupActivity;
@@ -15,6 +15,7 @@ import com.ale.channelsdemo.adapters.ChannelsAdapter;
 import com.ale.infra.list.ArrayItemList;
 import com.ale.infra.manager.channel.Channel;
 import com.ale.rainbowsdk.RainbowSdk;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
