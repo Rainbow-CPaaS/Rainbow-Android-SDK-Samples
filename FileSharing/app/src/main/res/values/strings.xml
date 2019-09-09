@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">FileSharing application sample</string>
+    <string name="your_email_address">Your email address</string>
+    <string name="your_password">Your password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="files">My files</string>
+    <string name="conversations">My conversations</string>
+    <string name="conversation_title">Choose a conversation to upload a file</string>
+    <string name="photo_description">Photo or initials of user</string>
+    <string name="delete_description">Icon for deleting file</string>
+    <string name="download_description">Icon for downloading file</string>
+
+</resources>
