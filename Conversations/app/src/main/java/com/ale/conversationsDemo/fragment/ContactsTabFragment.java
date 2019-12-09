@@ -12,19 +12,17 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.ale.infra.contact.Contact;
 import com.ale.infra.contact.IRainbowContact;
 import com.ale.infra.contact.RainbowPresence;
-import com.ale.infra.list.IItemListChangeListener;
+import com.ale.infra.list.IItemListChangeListener;;
 import com.ale.infra.proxy.conversation.IRainbowConversation;
-import com.ale.listener.IRainbowGetConversationListener;
 import com.ale.rainbowsdk.RainbowSdk;
 import com.ale.conversationsDemo.R;
 import com.ale.conversationsDemo.activity.StartupActivity;
 import com.ale.conversationsDemo.adapter.ContactsTabAdapter;
 
 
-public class ContactsTabFragment extends Fragment implements Contact.ContactListener {
+public class ContactsTabFragment extends Fragment implements IRainbowContact.IContactListener {
 
     private static final String TAG = "ContactsTabFragment";
     private StartupActivity m_activity;
@@ -62,19 +60,13 @@ public class ContactsTabFragment extends Fragment implements Contact.ContactList
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final IRainbowContact contact = (IRainbowContact)parent.getItemAtPosition(position);
 
-                RainbowSdk.instance().conversations().getConversationFromContact(contact.getImJabberId(), new IRainbowGetConversationListener() {
-                   @Override
-                    public void onGetConversationSuccess(IRainbowConversation conversation) {
-                       if (getActivity() instanceof StartupActivity) {
-                           ((StartupActivity)getActivity()).openConversationFragment(conversation);
-                       }
-                   }
-
-                   @Override
-                    public void onGetConversationError() {
-                       Toast.makeText(m_activity, "Cannot get the conversation for: " + contact.getFirstName() + " " + contact.getLastName(), Toast.LENGTH_SHORT).show();
-                   }
-                });
+                IRainbowConversation conversation = RainbowSdk.instance().conversations().getConversationFromContact(contact.getJid());
+                if (conversation != null) {
+                    if (getActivity() instanceof StartupActivity) {
+                        ((StartupActivity)getActivity()).openConversationFragment(conversation);
+                    }
+                } else
+                    Toast.makeText(m_activity, "Cannot get the conversation for: " + contact.getFirstName() + " " + contact.getLastName(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -136,7 +128,7 @@ public class ContactsTabFragment extends Fragment implements Contact.ContactList
     }
 
     @Override
-    public void contactUpdated(Contact updatedContact) {
+    public void contactUpdated(IRainbowContact iRainbowContact) {
         m_activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -146,7 +138,12 @@ public class ContactsTabFragment extends Fragment implements Contact.ContactList
     }
 
     @Override
-    public void onPresenceChanged(Contact contact, RainbowPresence presence) {
+    public void onPresenceChanged(IRainbowContact iRainbowContact, RainbowPresence rainbowPresence) {
+
+    }
+
+    @Override
+    public void onCompanyChanged(String s) {
 
     }
 

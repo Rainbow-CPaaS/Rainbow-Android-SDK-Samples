@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.ale.infra.contact.Contact;
 import com.ale.infra.contact.IRainbowContact;
 import com.ale.infra.contact.RainbowPresence;
 import com.ale.infra.list.IItemListChangeListener;
@@ -25,7 +24,7 @@ import com.ale.conversationsDemo.adapter.ConversationsTabAdapter;
  * Created by letrongh on 10/04/2017.
  */
 
-public class ConversationsTabFragment extends Fragment implements Contact.ContactListener {
+public class ConversationsTabFragment extends Fragment implements IRainbowContact.IContactListener {
 
     private static final String TAG = "ConversationsTabFragment";
     private StartupActivity m_activity;
@@ -135,7 +134,7 @@ public class ConversationsTabFragment extends Fragment implements Contact.Contac
     }
 
     @Override
-    public void contactUpdated(Contact updatedContact) {
+    public void contactUpdated(IRainbowContact iRainbowContact) {
         m_activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -145,7 +144,12 @@ public class ConversationsTabFragment extends Fragment implements Contact.Contac
     }
 
     @Override
-    public void onPresenceChanged(Contact contact, RainbowPresence presence) {
+    public void onPresenceChanged(IRainbowContact iRainbowContact, RainbowPresence rainbowPresence) {
+
+    }
+
+    @Override
+    public void onCompanyChanged(String s) {
 
     }
 

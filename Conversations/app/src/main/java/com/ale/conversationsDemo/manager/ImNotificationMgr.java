@@ -4,9 +4,10 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.TaskStackBuilder;
 
+import com.ale.conversationsDemo.R;
 import com.ale.infra.contact.IRainbowContact;
 import com.ale.infra.manager.IMMessage;
 import com.ale.infra.proxy.conversation.IRainbowConversation;
@@ -60,14 +61,14 @@ public class ImNotificationMgr implements IRainbowImListener {
     private void displayNotification(IRainbowContact contact, IMMessage message) {
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(m_context)
-                .setSmallIcon(android.support.design.R.drawable.notification_icon_background)
+                .setSmallIcon(R.drawable.notification_icon_background)
                 .setAutoCancel(true)
                 .setContentTitle(contact.getLastName() + " " + contact.getFirstName())
                 .setContentText(message.getMessageContent());
 
         Intent resultIntent = new Intent(m_context, StartupActivity.class);
         resultIntent.setAction("displayConversation");
-        resultIntent.putExtra("contactId", contact.getContactId());
+        resultIntent.putExtra("contactId", contact.getId());
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(m_context);
         stackBuilder.addParentStack(StartupActivity.class);
         stackBuilder.addNextIntent(resultIntent);

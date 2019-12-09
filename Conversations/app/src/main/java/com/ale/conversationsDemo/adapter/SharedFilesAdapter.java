@@ -73,16 +73,12 @@ public class SharedFilesAdapter extends BaseAdapter {
                 m_listToDisplay = RainbowSdk.instance().fileStorage().getFilesSentInConversation(m_conversation);
             } else if (m_room != null) {
                 m_listToDisplay = RainbowSdk.instance().fileStorage().getFilesSentInBubble(m_room);
-            } else {
-                m_listToDisplay = RainbowSdk.instance().fileStorage().getAllFilesSent().getCopyOfDataList();
             }
         } else {
             if (m_conversation != null) {
                 m_listToDisplay = RainbowSdk.instance().fileStorage().getFilesReceivedInConversation(m_conversation);
             } else if (m_room != null) {
                 m_listToDisplay = RainbowSdk.instance().fileStorage().getFilesReceivedInBubble(m_room);
-            } else {
-                m_listToDisplay = RainbowSdk.instance().fileStorage().getAllFilesReceived().getCopyOfDataList();
             }
         }
         notifyDataSetChanged();

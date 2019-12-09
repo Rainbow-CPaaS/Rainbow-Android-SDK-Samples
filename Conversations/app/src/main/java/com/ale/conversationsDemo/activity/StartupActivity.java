@@ -4,8 +4,8 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,17 +19,17 @@ import com.ale.infra.contact.RainbowPresence;
 import com.ale.infra.manager.fileserver.RainbowFileDescriptor;
 import com.ale.infra.manager.room.Room;
 import com.ale.infra.proxy.conversation.IRainbowConversation;
-import com.ale.listener.IRainbowGetConversationListener;
 import com.ale.listener.SignoutResponseListener;
 import com.ale.rainbowsdk.FileStorage;
 import com.ale.rainbowsdk.RainbowSdk;
-import com.ale.util.log.Log;
 import com.ale.conversationsDemo.R;
 import com.ale.conversationsDemo.fragment.ContactsTabFragment;
 import com.ale.conversationsDemo.fragment.ConversationFragment;
 import com.ale.conversationsDemo.fragment.ConversationsTabFragment;
 import com.ale.conversationsDemo.fragment.LoginFragment;
 import com.ale.conversationsDemo.fragment.SharedFilesFragment;
+
+import java.util.List;
 
 /**
  * A login screen that offers login via email/password.
@@ -68,18 +68,9 @@ public class StartupActivity extends AppCompatActivity {
         } else {
             unlockDrawer();
             if (getIntent() != null && "displayConversation".equals(getIntent().getAction())) {
-                RainbowSdk.instance().conversations().getConversationFromContact(getIntent().getStringExtra("contactId"), new IRainbowGetConversationListener() {
-                            @Override
-                            public void onGetConversationSuccess(IRainbowConversation conversation) {
-                                openConversationFragment(conversation);
-                            }
-
-                            @Override
-                            public void onGetConversationError() {
-
-                            }
-                        }
-                );
+                IRainbowConversation  conversation = RainbowSdk.instance().conversations().getConversationFromContact(getIntent().getStringExtra("contactId"));
+                if (conversation != null)
+                    openConversationFragment(conversation);
             }
         }
     }

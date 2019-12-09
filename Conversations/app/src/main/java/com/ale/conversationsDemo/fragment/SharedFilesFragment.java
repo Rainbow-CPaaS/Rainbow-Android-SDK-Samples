@@ -132,16 +132,11 @@ public class SharedFilesFragment extends Fragment {
 
         m_listViewFilesShared.setAdapter(m_adapter);
 
-        RainbowSdk.instance().fileStorage().getAllFilesSent().registerChangeListener(m_changeListener);
-        RainbowSdk.instance().fileStorage().getAllFilesReceived().registerChangeListener(m_changeListener);
-
         return fragmentView;
     }
 
     @Override
     public void onDestroyView() {
-        RainbowSdk.instance().fileStorage().getAllFilesSent().unregisterChangeListener(m_changeListener);
-        RainbowSdk.instance().fileStorage().getAllFilesReceived().unregisterChangeListener(m_changeListener);
 
         super.onDestroyView();
     }

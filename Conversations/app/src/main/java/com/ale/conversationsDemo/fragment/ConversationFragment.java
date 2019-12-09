@@ -6,8 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.widget.SwipeRefreshLayout;
+
+import com.ale.rainbow.RBLog;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +27,6 @@ import com.ale.infra.proxy.conversation.IRainbowConversation;
 import com.ale.listener.IRainbowImListener;
 import com.ale.rainbowsdk.FileStorage;
 import com.ale.rainbowsdk.RainbowSdk;
-import com.ale.util.log.Log;
 import com.ale.conversationsDemo.R;
 import com.ale.conversationsDemo.activity.StartupActivity;
 import com.ale.conversationsDemo.adapter.ConversationAdapter;
@@ -80,52 +81,40 @@ public class ConversationFragment extends Fragment implements IRainbowImListener
         }
 
         m_adapter = new ConversationAdapter(getActivity(), m_conversation);
-        m_listViewMessages = (ListView)fragmentView.findViewById(R.id.list_view_messages);
+        m_listViewMessages = fragmentView.findViewById(R.id.list_view_messages);
         m_listViewMessages.setAdapter(m_adapter);
 
-        m_swipeContainer = (SwipeRefreshLayout) fragmentView.findViewById(R.id.swipeContainer);
-        m_swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                Log.getLogger().verbose(TAG, "onRefresh");
-                RainbowSdk.instance().im().getMoreMessagesFromConversation(m_conversation, NB_MESSAGES_TO_RETRIEVE);
-            }
+        m_swipeContainer = fragmentView.findViewById(R.id.swipeContainer);
+        m_swipeContainer.setOnRefreshListener(() -> {
+            RBLog.trace(TAG, "onRefresh");
+            RainbowSdk.instance().im().getMoreMessagesFromConversation(m_conversation, NB_MESSAGES_TO_RETRIEVE);
         });
 
         RainbowSdk.instance().im().getMessagesFromConversation(m_conversation, NB_MESSAGES_TO_RETRIEVE);
         m_conversation.getMessages().registerChangeListener(m_changeListener);
 
-        m_editTextMessage = (EditText)fragmentView.findViewById(R.id.edit_text_message);
+        m_editTextMessage = fragmentView.findViewById(R.id.edit_text_message);
 
-        Button sendMessageButton = (Button)fragmentView.findViewById(R.id.button_send_message);
-        sendMessageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                RainbowSdk.instance().im().sendMessageToConversation(m_conversation, m_editTextMessage.getText().toString());
-                m_editTextMessage.getText().clear();
-            }
+        Button sendMessageButton = fragmentView.findViewById(R.id.button_send_message);
+        sendMessageButton.setOnClickListener(v -> {
+            RainbowSdk.instance().im().sendMessageToConversation(m_conversation, m_editTextMessage.getText().toString());
+            m_editTextMessage.getText().clear();
         });
 
-        FloatingActionButton attachmentButton = (FloatingActionButton)fragmentView.findViewById(R.id.fab_attach_file);
-        attachmentButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType("*/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select a file"), PICK_FILE);
-            }
+        FloatingActionButton attachmentButton = fragmentView.findViewById(R.id.fab_attach_file);
+        attachmentButton.setOnClickListener(v -> {
+            Intent intent = new Intent();
+            intent.setType("*/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "Select a file"), PICK_FILE);
         });
-        attachmentButton.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                if (m_conversation.isRoomType()) {
-                    m_activity.openSharedFilesFragment(FileStorage.GetMode.ALL_FILES_SENT_IN_BUBBLE, m_conversation.getRoom());
-                } else {
-                    m_activity.openSharedFilesFragment(FileStorage.GetMode.ALL_FILES_SENT_IN_CONVERSATION, m_conversation);
-                }
-                return true;
+        attachmentButton.setOnLongClickListener(v -> {
+            if (m_conversation.isRoomType()) {
+                m_activity.openSharedFilesFragment(FileStorage.GetMode.ALL_FILES_SENT_IN_BUBBLE, m_conversation.getRoom());
+            } else {
+                m_activity.openSharedFilesFragment(FileStorage.GetMode.ALL_FILES_SENT_IN_CONVERSATION, m_conversation);
             }
+            return true;
         });
 
         RainbowSdk.instance().im().markMessagesFromConversationAsRead(m_conversation);
@@ -223,12 +212,7 @@ public class ConversationFragment extends Fragment implements IRainbowImListener
     @Override
     public void onMessagesListUpdated(int status, String conversationId, List<IMMessage> messages) {
         if (conversationId.equals(m_conversation.getId())) {
-            m_activity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    m_swipeContainer.setRefreshing(false);
-                }
-            });
+            m_activity.runOnUiThread(() -> m_swipeContainer.setRefreshing(false));
             RainbowSdk.instance().im().markMessagesFromConversationAsRead(m_conversation);
         }
     }
@@ -237,18 +221,10 @@ public class ConversationFragment extends Fragment implements IRainbowImListener
     @Override
     public void onMoreMessagesListUpdated(int status, String conversationId, final List<IMMessage> messages) {
         if (conversationId.equals(m_conversation.getId())) {
-            m_activity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    m_swipeContainer.setRefreshing(false);
-                    if (m_listViewMessages != null) {
-                        m_listViewMessages.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                m_listViewMessages.setSelection(0);
-                            }
-                        });
-                    }
+            m_activity.runOnUiThread(() -> {
+                m_swipeContainer.setRefreshing(false);
+                if (m_listViewMessages != null) {
+                    m_listViewMessages.post(() -> m_listViewMessages.setSelection(0));
                 }
             });
         }

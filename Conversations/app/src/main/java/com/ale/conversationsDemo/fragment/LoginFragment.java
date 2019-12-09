@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +15,8 @@ import android.widget.Toast;
 
 import com.ale.listener.SigninResponseListener;
 import com.ale.listener.StartResponseListener;
+import com.ale.rainbow.RBLog;
 import com.ale.rainbowsdk.RainbowSdk;
-import com.ale.util.log.Log;
 import com.ale.conversationsDemo.R;
 import com.ale.conversationsDemo.activity.StartupActivity;
 import com.ale.conversationsDemo.manager.ImNotificationMgr;
@@ -42,19 +43,14 @@ public class LoginFragment extends Fragment {
         }
 
         // Login view and set the default value
-        m_loginView = (EditText)fragmentView.findViewById(R.id.login);
+        m_loginView = fragmentView.findViewById(R.id.login);
 
         // Password view and set the default value
-        m_passwordView = (EditText)fragmentView.findViewById(R.id.password);
+        m_passwordView = fragmentView.findViewById(R.id.password);
 
         // Button to sign in
-        Button signButton = (Button)fragmentView.findViewById(R.id.sign_button);
-        signButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                attemptLogin();
-            }
-        });
+        Button signButton = fragmentView.findViewById(R.id.sign_button);
+        signButton.setOnClickListener(v -> attemptLogin());
 
         m_loginView.setText(RainbowSdk.instance().myProfile().getUserLoginInCache());
 //        /m_passwordView.setText(RainbowSdk.instance().().getUserPasswordInCache());
@@ -92,7 +88,7 @@ public class LoginFragment extends Fragment {
         RainbowSdk.instance().connection().start(new StartResponseListener() {
             @Override
             public void onStartSucceeded() {
-                RainbowSdk.instance().connection().signin(email, password, "sandbox.openrainbow.com", new SigninResponseListener() {
+                RainbowSdk.instance().connection().signin(email, password, "demo.openrainbow.org", new SigninResponseListener() {
                     @Override
                     public void onSigninSucceeded() {
                         m_activity.runOnUiThread(new Runnable() {
@@ -118,7 +114,7 @@ public class LoginFragment extends Fragment {
 
             @Override
             public void onRequestFailed(RainbowSdk.ErrorCode errorCode, String err) {
-                Log.getLogger().error(LOG_TAG, "SDK start failure !!!");
+                RBLog.error(LOG_TAG, "SDK start failure !!!");
             }
         });
 
