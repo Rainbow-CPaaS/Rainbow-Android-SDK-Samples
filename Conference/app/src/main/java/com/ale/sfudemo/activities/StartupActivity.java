@@ -3,18 +3,16 @@ package com.ale.sfudemo.activities;
 
 import android.Manifest;
 import android.app.Fragment;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.ale.infra.contact.Contact;
 import com.ale.infra.contact.IRainbowContact;
 import com.ale.infra.list.IItemListChangeListener;
 import com.ale.infra.manager.call.ITelephonyListener;
@@ -27,7 +25,6 @@ import com.ale.sfudemo.R;
 import com.ale.sfudemo.fragments.BubbleFragment;
 import com.ale.sfudemo.fragments.BubblesFragment;
 import com.ale.sfudemo.fragments.LoginFragment;
-import com.ale.util.log.Log;
 
 public class StartupActivity extends AppCompatActivity implements ITelephonyListener {
     private static final String TAG = "StartupActivity";

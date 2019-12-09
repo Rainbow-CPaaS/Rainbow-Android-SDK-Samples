@@ -12,8 +12,8 @@ public class MyApp extends Application {
     public void onCreate() {
         super.onCreate();
 
-        final String APPLICATION_ID = "1dcc58f0d87711e9a360ebbee0f11a54";
-        final String SECRET_KEY = "LeemLFz1k5Ov48DBdOwF7sOGD259AWLohdzH7PMBDXj2zOWc2ZPUMG69MbE560ir";
-        RainbowSdk.instance().initialize(this, APPLICATION_ID, SECRET_KEY);
+        String applicationId = "YOUR APPLICATION IDENTIFIER";
+        String applicationSecret = "YOUR APPLICATION SECRET";
+        RainbowSdk.instance().initialize(this, applicationId, applicationSecret);
     }
 }

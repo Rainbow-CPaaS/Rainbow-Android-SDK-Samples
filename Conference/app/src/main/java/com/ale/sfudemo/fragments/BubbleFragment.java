@@ -6,24 +6,19 @@ import android.app.Fragment;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
+import androidx.core.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ale.infra.contact.Contact;
 import com.ale.infra.manager.pgiconference.IPgiConferenceProxy;
 import com.ale.infra.manager.room.Room;
 import com.ale.rainbowsdk.RainbowSdk;
 import com.ale.sfudemo.R;
 import com.ale.sfudemo.activities.StartupActivity;
-import com.ale.sfudemo.adapters.BubblesAdapter;
-
-import org.w3c.dom.Text;
 
 public class BubbleFragment extends Fragment {
 

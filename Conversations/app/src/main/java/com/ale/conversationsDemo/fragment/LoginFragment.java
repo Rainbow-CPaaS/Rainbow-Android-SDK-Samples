@@ -88,7 +88,7 @@ public class LoginFragment extends Fragment {
         RainbowSdk.instance().connection().start(new StartResponseListener() {
             @Override
             public void onStartSucceeded() {
-                RainbowSdk.instance().connection().signin(email, password, "demo.openrainbow.org", new SigninResponseListener() {
+                RainbowSdk.instance().connection().signin(email, password, "sandbox.openrainbow.com", new SigninResponseListener() {
                     @Override
                     public void onSigninSucceeded() {
                         m_activity.runOnUiThread(new Runnable() {
