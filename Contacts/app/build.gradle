@@ -25,6 +25,6 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.ale:rainbowsdk:1.59.0'
+    implementation 'com.ale:rainbowsdk:1.64.0'
 
 }

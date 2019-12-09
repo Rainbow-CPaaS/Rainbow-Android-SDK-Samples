@@ -21,7 +21,7 @@ import com.contacts.R;
 import com.contacts.activities.StartupActivity;
 
 
-public class ContactFragment extends Fragment implements Contact.ContactListener {
+public class ContactFragment extends Fragment implements IRainbowContact.IContactListener {
 
     private StartupActivity m_activity;
     private IRainbowContact m_contact;
@@ -153,12 +153,17 @@ public class ContactFragment extends Fragment implements Contact.ContactListener
     }
 
     @Override
-    public void contactUpdated(Contact updatedContact) {
-        updateViews();
+    public void contactUpdated(IRainbowContact iRainbowContact) {
+
     }
 
     @Override
-    public void onPresenceChanged(Contact contact, RainbowPresence presence) {
+    public void onPresenceChanged(IRainbowContact iRainbowContact, RainbowPresence rainbowPresence) {
+
+    }
+
+    @Override
+    public void onCompanyChanged(String s) {
 
     }
 
