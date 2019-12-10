@@ -60,10 +60,10 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.FileViewHold
 
         void bind(RainbowFileDescriptor file) {
             String name = file.getFileName();
-            IRainbowContact filePossessor = RainbowSdk.instance().contacts().getContactFromCorporateId(file.getOwnerId());
+            IRainbowContact filePossessor = RainbowSdk.instance().contacts().getContactFromId(file.getOwnerId());
 
-            boolean isSentByMe = filePossessor != null && RainbowSdk.instance().myProfile().getConnectedUser().getImJabberId().equals(
-                    filePossessor.getImJabberId());
+            boolean isSentByMe = filePossessor != null && RainbowSdk.instance().myProfile().getConnectedUser().getJid().equals(
+                    filePossessor.getJid());
 
             if (isSentByMe) {
                 deleteView.setVisibility(View.VISIBLE);
