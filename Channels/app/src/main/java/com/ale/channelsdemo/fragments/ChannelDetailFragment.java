@@ -15,6 +15,7 @@ import com.ale.channelsdemo.adapters.ChannelDetailAdapter;
 import com.ale.infra.http.adapter.concurrent.RainbowServiceException;
 import com.ale.infra.manager.channel.Channel;
 import com.ale.infra.manager.channel.ChannelItem;
+import com.ale.infra.manager.channel.ChannelMgr;
 import com.ale.infra.proxy.channel.IChannelProxy;
 import com.ale.rainbowsdk.RainbowSdk;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -56,7 +57,7 @@ public class ChannelDetailFragment extends Fragment {
 
         m_activity.getSupportActionBar().setTitle(m_activity.getResources().getString(R.string.channel) + ": " + channel.getDisplayName(""));
 
-        RainbowSdk.instance().channels().fetchItems(channel, new IChannelProxy.IChannelFetchItemsListener() {
+        RainbowSdk.instance().channels().fetchItems(channel, ChannelMgr.DEFAULT_LATEST_ITEMS_COUNT, new IChannelProxy.IChannelFetchItemsListener() {
             @Override
             public void onFetchItemsSuccess() {
                 refreshList();

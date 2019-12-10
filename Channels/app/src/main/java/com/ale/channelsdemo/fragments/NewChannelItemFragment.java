@@ -17,6 +17,7 @@ import com.ale.channelsdemo.activities.StartupActivity;
 import com.ale.infra.http.adapter.concurrent.RainbowServiceException;
 import com.ale.infra.manager.channel.Channel;
 import com.ale.infra.manager.channel.ChannelItem;
+import com.ale.infra.manager.channel.ChannelItemBuilder;
 import com.ale.infra.proxy.channel.IChannelProxy;
 import com.ale.rainbowsdk.RainbowSdk;
 
@@ -64,7 +65,9 @@ public class NewChannelItemFragment extends Fragment {
         if (item.getItemId() == R.id.action_create) {
             Editable message = ((EditText) m_activity.findViewById(R.id.new_channelitem_body)).getText();
             if (message != null && !message.toString().isEmpty()) {
-                RainbowSdk.instance().channels().createItem(channel, message.toString(), ChannelItem.ItemType.BASIC, "", "", new IChannelProxy.IChannelCreateItemListener() {
+                ChannelItemBuilder channelItemBuilder = new ChannelItemBuilder()
+                        .setMessage(message.toString());
+                RainbowSdk.instance().channels().createItem(channel, channelItemBuilder.build(), new IChannelProxy.IChannelCreateItemListener() {
                     @Override
                     public void onCreateMessageItemSuccess(String status) {
                         m_activity.runOnUiThread(() -> Toast.makeText(m_activity, R.string.message_sent, Toast.LENGTH_SHORT).show());
