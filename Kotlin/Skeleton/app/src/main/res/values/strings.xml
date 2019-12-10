@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Skeleton</string>
+    <string name="your_email_address">Your email</string>
+    <string name="your_password">Your password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="my_conversations">My conversations</string>
+    <string name="conversation_picture">Photo or initials of user</string>
+    <string name="search_contact">Search…</string>
+    <string name="bubble_name">Name</string>
+    <string name="bubble_description">Description</string>
+    <string name="bubble_notifications">Disable notifications :</string>
+    <string name="create_bubble">Create bubble</string>
+    <string name="choose_contacts">Choose contacts to add in bubbles : %d</string>
+    <string name="conversations">Conversations</string>
+    <string name="contacts">Contacts</string>
+    <string name="conversation">Conversation</string>
+    <string name="participants">Participants</string>
+    <string name="moderators">Moderators :</string>
+    <string name="members">Members :</string>
+    <string name="invited">Invited :</string>
+    <string name="archive_bubble">Archive bubble</string>
+    <string name="delete_bubble">Delete bubble</string>
+    <string name="archived_bubble">This bubble is archived. You are no longer able to publish</string>
+    <string name="typing">%s is typing…</string>
+</resources>

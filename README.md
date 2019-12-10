@@ -1,25 +1,33 @@
-![Rainbow](images/logo_rainbow.png)
-
 # Rainbow SDK for Android
 
+![Rainbow](images/logo_rainbow.png)
+
 ## Rainbow-Android-SDK-Samples
+
 ---
 
-Three samples which demonstrate the uses of the Rainbow SDK for Android are provided :
+Some samples which demonstrate the uses of the Rainbow SDK for Android are provided :
 
-- **[Conversations](Conversations)** (manage list of conversations - chat and bubbles)
-- **[Contacts](Contacts)** (manage list of contacts and make a native call to a contact)
-- **[Conference](Conference)** (list the bubbles and start a audio call)
-- **[WebRTC](WebRTC)** (make or take audio and/or video call)
-- **[Channels](Channels)** (manage channels, create new channels and messages)
-- **[File Sharing](FileSharing)** (manage file sharing, download and upload files)
+### Java
+
+- **[Conversations](Java/Conversations)** - manage list of conversations - chat and bubbles
+- **[Contacts](Java/Contacts)** - manage list of contacts and make a native call to a contact
+- **[Conference](Java/Conference)** - list the bubbles and start an audio call
+- **[WebRTC](Java/WebRTC)** - make or take audio/video call
+- **[Channels](Java/Channels)** - manage channels, create new channels and messages
+- **[File Sharing](Java/FileSharing)** - manage file sharing, download/upload files
+
+### Kotlin
+
+- **[Skeleton](Kotlin/Skeleton)** - Startup skeleton
+- **[Conversations](Kotlin/Conversations)** - manage one to one conversations, bubbles and contacts
 
 You must have a valid Rainbow account on sandbox to be able to login and test.
 
-If you have this error (Unknown application or wrong token for application id YOUR APPLICATION IDENTIFIER) when you attempt to login, please enter your own application id and application secret or try to remove default values in **MyApp** class.
+If you have this error : `Unknown application or wrong token for application id YOUR_APPLICATION_ID` when you attempt to login, please enter your own application id and application secret or try to remove default values in **Application** class.
 
-To know how can you have an application id and an application secret, please refer to [hub.openrainbow.com].
-
+You can find more information about application id and application secret at [hub.openrainbow.com](https://hub.openrainbow.com/#/documentation/doc/hub/developer-sandboxed-platform)
 
 ---
-_Last updated February, 22th 2018_
+
+_Last updated December, 6th 2019_
