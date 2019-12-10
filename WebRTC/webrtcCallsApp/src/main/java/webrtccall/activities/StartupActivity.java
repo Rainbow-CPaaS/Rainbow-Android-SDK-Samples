@@ -5,9 +5,9 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,7 +19,6 @@ import com.ale.infra.manager.call.ITelephonyListener;
 import com.ale.infra.manager.call.WebRTCCall;
 import com.ale.listener.SignoutResponseListener;
 import com.ale.rainbowsdk.RainbowSdk;
-import com.ale.util.log.Log;
 
 import webrtccall.callapplication.R;
 import webrtccall.fragments.ContactFragment;
@@ -151,16 +150,16 @@ public class StartupActivity  extends AppCompatActivity implements ITelephonyLis
             if (allPermissionsGranted) {
                 switch (requestCode) {
                     case REQUEST_MAKE_AUDIO_CALL:
-                        RainbowSdk.instance().webRTC().makeCall((Contact)m_lastOpenedContact, false, null);
+                        RainbowSdk.instance().webRTC().makeCall((Contact)m_lastOpenedContact, false, false, null);
                         break;
                     case REQUEST_MAKE_VIDEO_CALL:
-                        RainbowSdk.instance().webRTC().makeCall((Contact)m_lastOpenedContact, true, null);
+                        RainbowSdk.instance().webRTC().makeCall((Contact)m_lastOpenedContact, true, true, null);
                         break;
                     case REQUEST_TAKE_AUDIO_CALL:
-                        RainbowSdk.instance().webRTC().takeCall(false);
+                        RainbowSdk.instance().webRTC().takeCall(false, false);
                         break;
                     case REQUEST_TAKE_VIDEO_CALL:
-                        RainbowSdk.instance().webRTC().takeCall(true);
+                        RainbowSdk.instance().webRTC().takeCall(true, true);
                         break;
                 }
             } else {

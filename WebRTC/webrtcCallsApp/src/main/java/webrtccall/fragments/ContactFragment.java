@@ -6,7 +6,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
+import androidx.core.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +49,7 @@ public class ContactFragment extends Fragment {
                 // If not, ask for it.
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M || m_activity.hasMicrophonePermission()) {
                     // The Android version is lower than M OR we already have the permission "RECORD_AUDIO" --> just make the audio call
-                    RainbowSdk.instance().webRTC().makeCall((Contact)m_contact, false, null);
+                    RainbowSdk.instance().webRTC().makeCall((Contact)m_contact, false, false, null);
                 } else {
                     // We have to ask for the permission "RECORD_AUDIO" first.
                     ActivityCompat.requestPermissions(m_activity, new String[] {Manifest.permission.RECORD_AUDIO}, StartupActivity.REQUEST_MAKE_AUDIO_CALL);
@@ -69,7 +69,7 @@ public class ContactFragment extends Fragment {
 
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M || hasMicrophonePermission && hasCameraPermission) {
                     // The Android version is lower than M OR we already have the permissions "RECORD_AUDIO" and "CAMERA" --> just make the video call
-                    RainbowSdk.instance().webRTC().makeCall((Contact) m_contact, true, null);
+                    RainbowSdk.instance().webRTC().makeCall((Contact) m_contact, true, true, null);
                 } else {
                     if (!hasMicrophonePermission && !hasCameraPermission) {
                         // Both permissions are missing --> ask for them

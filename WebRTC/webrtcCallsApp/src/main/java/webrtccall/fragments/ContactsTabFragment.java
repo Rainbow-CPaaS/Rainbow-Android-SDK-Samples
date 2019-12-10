@@ -22,7 +22,7 @@ import webrtccall.activities.StartupActivity;
 import webrtccall.adapters.ContactsTabAdapter;
 import webrtccall.callapplication.R;
 
-public class ContactsTabFragment extends Fragment implements Contact.ContactListener {
+public class ContactsTabFragment extends Fragment implements IRainbowContact.IContactListener {
 
     private StartupActivity m_activity;
     private ContactsTabAdapter m_adapter;
@@ -77,8 +77,9 @@ public class ContactsTabFragment extends Fragment implements Contact.ContactList
         super.onDestroyView();
     }
 
+
     @Override
-    public void contactUpdated(Contact updatedContact) {
+    public void contactUpdated(IRainbowContact iRainbowContact) {
         m_activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -88,7 +89,12 @@ public class ContactsTabFragment extends Fragment implements Contact.ContactList
     }
 
     @Override
-    public void onPresenceChanged(Contact contact, RainbowPresence presence) {
+    public void onPresenceChanged(IRainbowContact iRainbowContact, RainbowPresence rainbowPresence) {
+
+    }
+
+    @Override
+    public void onCompanyChanged(String s) {
 
     }
 

@@ -14,8 +14,8 @@ import android.widget.Toast;
 
 import com.ale.listener.SigninResponseListener;
 import com.ale.listener.StartResponseListener;
+import com.ale.rainbow.RBLog;
 import com.ale.rainbowsdk.RainbowSdk;
-import com.ale.util.log.Log;
 
 import webrtccall.activities.StartupActivity;
 import webrtccall.callapplication.R;
@@ -84,7 +84,7 @@ public class LoginFragment extends Fragment {
 
             @Override
             public void onRequestFailed(RainbowSdk.ErrorCode errorCode, String err) {
-                Log.getLogger().error(LOG_TAG, "The Rainbow SDK service has encountered an error when trying to start.");
+                RBLog.error(LOG_TAG, "The Rainbow SDK service has encountered an error when trying to start.");
             }
         });
     }
