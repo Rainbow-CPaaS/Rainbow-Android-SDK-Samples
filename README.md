@@ -21,6 +21,7 @@ Some samples which demonstrate the uses of the Rainbow SDK for Android are provi
 
 - **[Skeleton](Kotlin/Skeleton)** - Startup skeleton
 - **[Conversations](Kotlin/Conversations)** - manage one to one conversations, bubbles and contacts
+- **[Push](Kotlin/Push)** - manage push notifications
 
 You must have a valid Rainbow account on sandbox to be able to login and test.
 

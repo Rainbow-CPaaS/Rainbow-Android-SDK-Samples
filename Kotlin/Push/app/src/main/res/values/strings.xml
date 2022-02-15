@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Push</string>
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
+    <string name="connected_on">Connected on %s</string>
+    <string name="incoming_call">Incoming call</string>
+    <string name="from">from %s</string>
+</resources>
