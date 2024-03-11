@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_conversations">
+
+    <fragment
+        android:id="@+id/navigation_conversations"
+        android:name="com.ale.rainbowsample.conversations.ConversationsFragment"
+        android:label="@string/conversations"
+        tools:layout="@layout/fragment_conversations" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_rooms"
+        android:name="com.ale.rainbowsample.rooms.RoomsFragment"
+        android:label="@string/rooms"
+        tools:layout="@layout/fragment_rooms" />
+
+    <fragment
+        android:id="@+id/navigation_contacts"
+        android:name="com.ale.rainbowsample.contacts.NotificationsFragment"
+        android:label="@string/contacts"
+        tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.ale.rainbowsample.profile.ProfileFragment"
+        android:label="@string/profile"
+        tools:layout="@layout/fragment_profile" />
+
+</navigation>

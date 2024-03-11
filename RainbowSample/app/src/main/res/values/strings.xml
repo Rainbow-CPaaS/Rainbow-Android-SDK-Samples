@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">RainbowSample</string>
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="no_account_signup">Don\'t have an account ? Sign up</string>
+    <string name="sign_up">Sign up</string>
+    <string name="account_sign_in">Already have an account ? Sign in</string>
+    <string name="username_required">Username is required</string>
+    <string name="invalid_email_address">Invalid email address</string>
+    <string name="password_required">Password is required</string>
+    <string name="incorrect_username_or_password">Incorrect username or password</string>
+    <string name="an_error_occurred">An error occurred</string>
+    <string name="send_code">Send code</string>
+    <string name="validate">Validate</string>
+    <string name="enter_digit_code">Please enter the 6-digit code you received by email</string>
+    <string name="code">Code</string>
+    <string name="please_enter_the_6_digit_code">Please enter the 6-digit code</string>
+    <string name="password_rules">Expected a password matching the following rules: length must be between 12 and 64 characters, and contain at least 1 lowercase, 1 uppercase, 1 number and 1 special character</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="create_your_account">Create your account</string>
+    <string name="please_enter_a_first_name">Please enter a first name</string>
+    <string name="please_enter_a_last_name">Please enter a last name</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="conversations">Conversations</string>
+    <string name="rooms">Rooms</string>
+    <string name="contacts">Contacts</string>
+    <string name="profile">Profile</string>
+    <string name="change_your_password">Change your password</string>
+    <string name="old_password">Old password</string>
+    <string name="new_password">New password</string>
+    <string name="unknown">Unknown</string>
+    <string name="last_message_sent">You : %s</string>
+    <string name="last_message_received">%s : %s</string>
+    <string name="you_have_started_a_conference">You have started a conference</string>
+    <string name="has_started_a_conference">%s has started a conference</string>
+    <string name="you_have_ended_the_conference">You have ended the conference</string>
+    <string name="has_ended_the_conference">%s has ended the conference</string>
+    <string name="you_called">You called %s</string>
+    <string name="called_you">%s called you</string>
+    <string name="outgoing_call">Outgoing call</string>
+    <string name="incoming_call_forwarded">Incoming call forwarded</string>
+    <string name="missed_call">Missed call</string>
+
+</resources>
