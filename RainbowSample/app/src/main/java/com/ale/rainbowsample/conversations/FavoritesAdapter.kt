@@ -9,9 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ale.infra.contact.IRainbowContact
 import com.ale.infra.contact.RainbowPresence
-import com.ale.rainbowsample.R
 import com.ale.rainbowsample.databinding.FavoriteAdapterItemBinding
-import com.ale.rainbowx.rainbowadapter.RainbowAdapter
 import com.ale.rainbowx.rainbowadapter.RainbowViewHolder
 
 class FavoritesAdapter : ListAdapter<FavoriteUiState, RecyclerView.ViewHolder>(FavoriteDiffCallBack()) {
@@ -40,8 +38,6 @@ class FavoritesAdapter : ListAdapter<FavoriteUiState, RecyclerView.ViewHolder>(F
         private var contact: IRainbowContact? = null
 
         override fun bind(data: FavoriteUiState, onClick: ((FavoriteUiState, Int) -> Unit)?, onLongClick: ((FavoriteUiState, Int) -> Boolean)?) {
-
-            println("**** biiind")
             contact = data.favorite.contact
 
             data.favorite.contact?.let { contact ->

@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ale.rainbowsample.R
 import com.ale.rainbowsample.databinding.FragmentConversationsBinding
+import com.ale.rainbowsample.utils.HorizontalMarginItemDecoration
 import com.ale.rainbowsample.utils.collectLifecycleFlow
 import com.ale.rainbowsample.utils.viewLifecycle
+import com.ale.util.dp
 import com.google.android.material.divider.MaterialDividerItemDecoration
 
 
@@ -20,7 +20,8 @@ class ConversationsFragment : Fragment() {
     private var binding: FragmentConversationsBinding by viewLifecycle()
     private val conversationsViewModel: ConversationsViewModel by viewModels()
 
-    private lateinit var adapter : ConversationsAdapter
+    private lateinit var conversationsAdapter : ConversationsAdapter
+    private lateinit var favoritesAdapter : FavoritesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,28 +35,18 @@ class ConversationsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initializeAdapter()
+        initializeConversationsAdapter()
+        initializeFavoritesAdapter()
 
         collectLifecycleFlow(conversationsViewModel.uiState) { uiState ->
-            val newList = mutableListOf<ConversationsAdapter.ConversationsAdapterItemType>()
-
-            newList.add(
-                ConversationsAdapter.ConversationsAdapterItemType.FavoritesItem(uiState.favorites)
-            )
-
-            newList.addAll(
-                uiState.conversations.map {
-                    ConversationsAdapter.ConversationsAdapterItemType.ConversationItem(it)
-                }
-            )
-
-            adapter.submitList(newList)
+            conversationsAdapter.submitList(uiState.conversations)
+            favoritesAdapter.submitList(uiState.favorites)
         }
     }
 
-    private fun initializeAdapter() {
-        adapter = ConversationsAdapter()
-        binding.conversationsList.adapter = adapter
+    private fun initializeConversationsAdapter() {
+        conversationsAdapter = ConversationsAdapter()
+        binding.conversationsList.adapter = conversationsAdapter
 
         val divider = MaterialDividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL).apply {
             dividerThickness = 1
@@ -63,5 +54,18 @@ class ConversationsFragment : Fragment() {
         }
 
         binding.conversationsList.addItemDecoration(divider)
+    }
+
+    private fun initializeFavoritesAdapter() {
+        favoritesAdapter = FavoritesAdapter()
+        binding.favoritesList.adapter = favoritesAdapter
+
+        val divider = HorizontalMarginItemDecoration().apply {
+            dividerThickness = 8.dp
+            isLastItemDecorated = false
+        }
+
+        binding.favoritesList.addItemDecoration(divider)
+        binding.favoritesList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
     }
 }

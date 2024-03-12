@@ -6,16 +6,13 @@ import com.ale.rainbowsdk.RainbowSdk
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import kotlin.system.measureTimeMillis
 
 class ConversationsViewModel : ViewModel() {
 
     private val conversationsChangeListener = IItemListChangeListener {
-        println("**** conversationsChangeListener")
         onConversationsChanged()
     }
     private val favoritesChangeListener = IItemListChangeListener {
-        println("**** favoritesChangeListener")
         onConversationsChanged()
     }
 
@@ -40,21 +37,15 @@ class ConversationsViewModel : ViewModel() {
     }
 
     private fun onConversationsChanged() {
+        // We are filtering list to not display conversations related to webinar
+        val conversations = RainbowSdk().im().allConversations.copyOfDataList.filterNot { conv -> conv.isWebinar }
+        val favorites = RainbowSdk().favorites().favorites.copyOfDataList
 
-        val measure = measureTimeMillis {
-
-            // We are filtering list to not display conversations related to webinar
-            val conversations = RainbowSdk().im().allConversations.copyOfDataList.filterNot { conv -> conv.isWebinar }
-            val favorites = RainbowSdk().favorites().favorites.copyOfDataList
-
-            _uiState.update {
-                it.copy(
-                    conversations = conversations.mapToConversationsUiState(),
-                    favorites = favorites.mapToFavoritesUiState()
-                )
-            }
+        _uiState.update {
+            it.copy(
+                conversations = conversations.mapToConversationsUiState(),
+                favorites = favorites.mapToFavoritesUiState()
+            )
         }
-
-        println("**** $measure")
     }
 }

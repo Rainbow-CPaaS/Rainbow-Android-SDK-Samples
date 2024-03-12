@@ -51,7 +51,7 @@ dependencies {
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
-    implementation("com.ale:rainbowsdk:2.46.0-beta.2")
+    implementation("com.ale:rainbowsdk:2.47.0-beta.0")
 
     implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
     implementation("androidx.navigation:navigation-ui-ktx:$navVersion")

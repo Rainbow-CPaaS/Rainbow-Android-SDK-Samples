@@ -3,10 +3,10 @@ package com.ale.rainbowsample.conversations
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ale.infra.contact.IRainbowContact
@@ -16,34 +16,25 @@ import com.ale.infra.proxy.conversation.IRainbowConversation
 import com.ale.infra.xmpp.packetextension.room.RoomMultiUserChatEventExtension
 import com.ale.rainbowsample.R
 import com.ale.rainbowsample.databinding.ConversationAdapterItemBinding
-import com.ale.rainbowsample.databinding.FavoriteListAdapterItemBinding
-import com.ale.rainbowsample.utils.HorizontalMarginItemDecoration
 import com.ale.rainbowsample.utils.toShortFormat
 import com.ale.rainbowsdk.RainbowSdk
-import com.ale.rainbowx.conferencerecyclerview.removeAllItemDecorations
-import kotlin.math.roundToInt
 
-class ConversationsAdapter : ListAdapter<ConversationsAdapter.ConversationsAdapterItemType, RecyclerView.ViewHolder>(ConversationsDiffCallBack()) {
+class ConversationsAdapter : ListAdapter<ConversationUiState, RecyclerView.ViewHolder>(ConversationsDiffCallBack()) {
 
     override fun getItemViewType(position: Int): Int {
-        return when (getItem(position)) {
-            is ConversationsAdapterItemType.FavoritesItem -> R.layout.favorite_list_adapter_item
-            is ConversationsAdapterItemType.ConversationItem -> R.layout.conversation_adapter_item
-        }
+        return R.layout.conversation_adapter_item
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             R.layout.conversation_adapter_item -> ConversationViewHolder(ConversationAdapterItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
-            R.layout.favorite_list_adapter_item -> FavoritesViewHolder(FavoriteListAdapterItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
             else -> throw IllegalStateException("Not handled")
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when(holder) {
-            is ConversationViewHolder -> holder.bind(getItem(position) as ConversationsAdapterItemType.ConversationItem)
-            is FavoritesViewHolder -> holder.bind(getItem(position) as ConversationsAdapterItemType.FavoritesItem)
+        when (holder) {
+            is ConversationViewHolder -> holder.bind(getItem(position) as ConversationUiState)
         }
     }
 
@@ -55,9 +46,6 @@ class ConversationsAdapter : ListAdapter<ConversationsAdapter.ConversationsAdapt
     override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
         if (holder is ConversationViewHolder)
             holder.removeConversationObserver()
-
-        if (holder is FavoritesViewHolder)
-            holder.unregisterChildObservers()
     }
 
     internal inner class ConversationViewHolder(private val binding: ConversationAdapterItemBinding) : RecyclerView.ViewHolder(binding.root), IRainbowContact.IContactListener {
@@ -76,14 +64,14 @@ class ConversationsAdapter : ListAdapter<ConversationsAdapter.ConversationsAdapt
             contact?.unregisterChangeListener(this)
         }
 
-        fun bind(data: ConversationsAdapterItemType.ConversationItem) {
-            contact = data.conversation.conversation.contact
+        fun bind(data: ConversationUiState) {
+            contact = data.conversation.contact
 
-            displayTitle(data.conversation.conversation)
-            displaySubtitle(data.conversation.conversation)
-            displayConversationAvatar(data.conversation.conversation)
+            displayTitle(data.conversation)
+            displaySubtitle(data.conversation)
+            displayConversationAvatar(data.conversation)
             displayPresence()
-            displayTimeStamp(data.conversation.conversation)
+            displayTimeStamp(data.conversation)
         }
 
         private fun displayTimeStamp(conversation: IRainbowConversation) {
@@ -203,59 +191,15 @@ class ConversationsAdapter : ListAdapter<ConversationsAdapter.ConversationsAdapt
         }
     }
 
-    internal inner class FavoritesViewHolder(private val binding: FavoriteListAdapterItemBinding) : RecyclerView.ViewHolder(binding.root) {
-
-        val recyclerView: RecyclerView
-            get() = binding.favoritesRecyclerview
-
-        private var childFavoritesAdapter: FavoritesAdapter = FavoritesAdapter()
-
-        fun bind(data: ConversationsAdapterItemType.FavoritesItem) {
-            binding.favoritesRecyclerview.adapter = childFavoritesAdapter
-            binding.favoritesRecyclerview.layoutManager = LinearLayoutManager(binding.root.context, LinearLayoutManager.HORIZONTAL, false)
-
-            val divider = HorizontalMarginItemDecoration().apply {
-                dividerThickness = binding.root.resources.getDimension(R.dimen.small_horizontal_margin).roundToInt()
-                isLastItemDecorated = false
-            }
-
-            binding.favoritesRecyclerview.removeAllItemDecorations()
-            binding.favoritesRecyclerview.addItemDecoration(divider)
-
-            childFavoritesAdapter.submitList(data.favorites)
+    private class ConversationsDiffCallBack : DiffUtil.ItemCallback<ConversationUiState>() {
+        override fun areItemsTheSame(oldItem: ConversationUiState, newItem: ConversationUiState): Boolean {
+            return oldItem.conversation.id == newItem.conversation.id
         }
 
-        fun unregisterChildObservers() {
-            binding.favoritesRecyclerview.adapter = null
+        override fun areContentsTheSame(oldItem: ConversationUiState, newItem: ConversationUiState): Boolean {
+            return oldItem.lastMessage.messageId == newItem.lastMessage.messageId &&
+                    oldItem.displayName == newItem.displayName &&
+                    oldItem.presence == newItem.presence
         }
-    }
-
-    private class ConversationsDiffCallBack : DiffUtil.ItemCallback<ConversationsAdapterItemType>() {
-        override fun areItemsTheSame(oldItem: ConversationsAdapterItemType, newItem: ConversationsAdapterItemType): Boolean {
-            if (oldItem is ConversationsAdapterItemType.ConversationItem && newItem is ConversationsAdapterItemType.ConversationItem) {
-                return oldItem.conversation.conversation.id == newItem.conversation.conversation.id
-            }
-
-            if (oldItem is ConversationsAdapterItemType.FavoritesItem && newItem is ConversationsAdapterItemType.FavoritesItem) {
-                return oldItem.favorites == newItem.favorites
-            }
-
-            return false
-        }
-
-        override fun areContentsTheSame(oldItem: ConversationsAdapterItemType, newItem: ConversationsAdapterItemType): Boolean {
-            if (oldItem is ConversationsAdapterItemType.ConversationItem && newItem is ConversationsAdapterItemType.ConversationItem) {
-                return oldItem.conversation.lastMessage.messageId == newItem.conversation.lastMessage.messageId &&
-                        oldItem.conversation.displayName == newItem.conversation.displayName &&
-                        oldItem.conversation.presence == newItem.conversation.presence
-            }
-
-            return false
-        }
-    }
-
-    sealed class ConversationsAdapterItemType {
-        data class FavoritesItem(val favorites: List<FavoriteUiState>) : ConversationsAdapterItemType()
-        data class ConversationItem(val conversation: ConversationUiState) : ConversationsAdapterItemType()
     }
 }
