@@ -13,10 +13,82 @@
         app:liftOnScroll="true"
         app:liftOnScrollTargetViewId="@id/nested_scroll">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize" />
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/toolbar_height"
+                android:theme="?attr/actionBarStyle"
+                android:visibility="visible"
+                android:contentInsetStart="0dp"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.ale.rainbowx.rainbowavatar.AvatarCardView
+                        android:id="@+id/avatar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:avatarDimension="tiny"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:text="@string/app_name"
+                        android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                        android:textAlignment="viewStart"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/search_action"
+                        app:layout_constraintStart_toEndOf="@id/avatar"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/search_action"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="?actionBarItemBackground"
+                        android:contentDescription="@string/search"
+                        android:padding="12dp"
+                        android:tint="?attr/colorPrimary"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/baseline_search_24" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.appcompat.widget.Toolbar>
+
+            <com.ale.rainbowsample.components.SearchToolbar
+                android:id="@+id/search_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/toolbar_height"
+                android:visibility="invisible"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--        <com.ale.rainbowsample.components.SearchToolbar-->
+<!--            android:id="@+id/"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"/>-->
+
+<!--        <com.google.android.material.appbar.MaterialToolbar-->
+<!--            android:id="@+id/toolbar"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="?attr/actionBarSize" />-->
 
     </com.google.android.material.appbar.AppBarLayout>
 

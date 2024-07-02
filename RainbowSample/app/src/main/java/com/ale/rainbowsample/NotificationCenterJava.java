@@ -15,10 +15,10 @@ import androidx.core.content.PermissionChecker;
 
 import com.ale.infra.contact.IRainbowContact;
 import com.ale.infra.manager.IMMessage;
-import com.ale.infra.manager.call.ITelephonyListener;
-import com.ale.infra.manager.call.WebRTCCall;
 import com.ale.infra.manager.channel.Channel;
 import com.ale.infra.manager.channel.ChannelItem;
+import com.ale.infra.manager.webrtc.call.ITelephonyListener;
+import com.ale.infra.manager.webrtc.call.WebRTCCall;
 import com.ale.infra.proxy.conversation.IRainbowConversation;
 import com.ale.rainbowsdk.Channels;
 import com.ale.rainbowsdk.Im;
@@ -88,17 +88,17 @@ class NotificationCenterJava implements Channels.IChannelsListener, Im.IRainbowI
    }
 
    @Override
-   public void onCallAdded(WebRTCCall call, boolean secondCall) {
+   public void onCallAdded(@NonNull WebRTCCall call, boolean secondCall) {
       // Add your logic to display an incoming call notification
    }
 
    @Override
-   public void onCallModified(WebRTCCall call, boolean secondCall) {
+   public void onCallModified(@NonNull WebRTCCall call, boolean secondCall) {
       // Add your logic to handle call modified
    }
 
    @Override
-   public void onCallRemoved(WebRTCCall call, boolean secondCall) {
+   public void onCallRemoved(@NonNull WebRTCCall call, boolean secondCall) {
       // Add your logic to remove the incoming call notification if necessary
    }
 }

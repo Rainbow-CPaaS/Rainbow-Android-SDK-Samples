@@ -2,11 +2,23 @@ package com.ale.rainbowsample.conversations
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.core.view.MenuProvider
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ale.rainbowsample.R
+import com.ale.rainbowsample.activities.HomeActivity
+import com.ale.rainbowsample.activities.SearchCallback
+import com.ale.rainbowsample.components.SearchToolbar
 import com.ale.rainbowsample.databinding.FragmentConversationsBinding
 import com.ale.rainbowsample.utils.HorizontalMarginItemDecoration
 import com.ale.rainbowsample.utils.collectLifecycleFlow
@@ -17,7 +29,11 @@ import com.google.android.material.divider.MaterialDividerItemDecoration
 
 class ConversationsFragment : Fragment() {
 
-    private var binding: FragmentConversationsBinding by viewLifecycle()
+    private var binding: FragmentConversationsBinding by viewLifecycle {
+        binding.favoritesList.adapter = null
+        binding.conversationsList.adapter = null
+    }
+
     private val conversationsViewModel: ConversationsViewModel by viewModels()
 
     private lateinit var conversationsAdapter : ConversationsAdapter
@@ -29,6 +45,7 @@ class ConversationsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentConversationsBinding.inflate(inflater, container, false)
+        (activity as? HomeActivity)?.setAppBarScrollId(binding.nestedScroll)
         return binding.root
     }
 
@@ -37,11 +54,69 @@ class ConversationsFragment : Fragment() {
 
         initializeConversationsAdapter()
         initializeFavoritesAdapter()
+        initializeSearch()
 
         collectLifecycleFlow(conversationsViewModel.uiState) { uiState ->
             conversationsAdapter.submitList(uiState.conversations)
             favoritesAdapter.submitList(uiState.favorites)
         }
+
+        requireActivity().addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.conversations_list_menu, menu)
+            }
+
+            override fun onPrepareMenu(menu: Menu) {
+
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+
+                return false
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
+        requireActivity().onBackPressedDispatcher.addCallback(getViewLifecycleOwner(), object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (!closeSearchIfNeeded()) {
+                    if (!NavHostFragment.findNavController(this@ConversationsFragment).popBackStack()) {
+                        requireActivity().finish()
+                    }
+                }
+            }
+        })
+    }
+
+    private fun initializeSearch() {
+        val searchCallback =  (requireActivity() as? SearchCallback) ?: return
+        searchCallback.getSearchButton().setOnClickListener {
+            searchCallback.onSearchOpened()
+            searchCallback.getSearchToolbar().listener = object : SearchToolbar.Listener {
+                override fun onSearchTextChange(text: String) {
+                    // TODO search
+                    println("**** search in conversations fragments")
+
+                }
+
+                override fun onSearchClosed() {
+                    searchCallback.onSearchClosed()
+                }
+            }
+        }
+    }
+
+    private fun closeSearchIfNeeded() : Boolean {
+        if (isSearchOpen()) {
+            (requireActivity() as SearchCallback).getSearchToolbar().collapse()
+            (requireActivity() as SearchCallback).onSearchClosed()
+            return true
+        }
+
+        return false
+    }
+
+    private fun isSearchOpen() : Boolean {
+        return (requireActivity() as SearchCallback).getSearchToolbar().isVisible
     }
 
     private fun initializeConversationsAdapter() {

@@ -42,5 +42,31 @@
     <string name="outgoing_call">Outgoing call</string>
     <string name="incoming_call_forwarded">Incoming call forwarded</string>
     <string name="missed_call">Missed call</string>
+    <string name="removed_user">Removed user</string>
+    <string name="online">Online</string>
+    <string name="offline_since">Offline since %1$s</string>
+    <string name="offline">Offline</string>
+    <string name="busy_video">Busy video</string>
+    <string name="busy_audio">Busy audio</string>
+    <string name="busy">Busy</string>
+    <string name="away">Away</string>
+    <string name="away_since">Away since %1$s</string>
+    <string name="do_not_disturb">Do not disturb</string>
+    <string name="do_not_disturb_appointment">Do not disturb (appointment)</string>
+    <string name="do_not_disturb_presentation">Do not disturb (presentation)</string>
+    <string name="busy_screen_sharing">Busy screen sharing</string>
+    <string name="online_on_mobile">Online on mobile</string>
+    <string name="do_not_disturb_teams">Do not disturb (Teams)</string>
+    <string name="search">Search</string>
+    <string name="close">Close</string>
+    <string name="clear">Clear</string>
+    <string name="new_group">New group</string>
+    <string name="there_are_no_results">There are no results</string>
+    <string name="network_contact_title">Contacts in my network</string>
+    <string name="my_contact_groups">My contact groups</string>
+    <string name="my_company_contacts">My company contacts</string>
+    <string name="phone_contacts">Phone contacts</string>
+    <string name="phone_book_contacts">Phone book contacts</string>
+    <string name="rainbow_contacts">Rainbow contacts</string>
 
 </resources>

@@ -7,18 +7,18 @@
         android:title="@string/conversations" />
 
     <item
-        android:id="@+id/navigation_rooms"
-        android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/rooms" />
-
-    <item
         android:id="@+id/navigation_contacts"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@drawable/bottom_nav_contacts_icon"
         android:title="@string/contacts" />
 
     <item
-        android:id="@+id/navigation_profile"
-        android:icon="@drawable/baseline_settings_24"
-        android:title="@string/profile" />
+        android:id="@+id/navigation_rooms"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="@string/rooms" />
+
+<!--    <item-->
+<!--        android:id="@+id/navigation_profile"-->
+<!--        android:icon="@drawable/baseline_settings_24"-->
+<!--        android:title="@string/profile" />-->
 
 </menu>

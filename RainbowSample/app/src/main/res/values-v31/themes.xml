@@ -49,7 +49,8 @@
         <item name="colorSurfaceContainerHigh">@color/md_theme_surfaceContainerHigh</item>
         <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest</item>
 
-        <item name="android:windowSplashScreenBackground">@color/md_theme_primary</item>
+        <item name="android:windowSplashScreenBackground">@color/primary</item>
+        <item name="actionBarStyle">@style/Sample.LightActionBar</item>
 
     </style>
 </resources>

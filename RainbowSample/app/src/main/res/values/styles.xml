@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- ActionBar styles -->
+    <style name="Sample.LightActionBar" parent="@style/Widget.AppCompat.ActionBar">
+        <item name="background">@color/color_background</item>
+        <item name="actionOverflowMenuStyle">@style/Sample.DayNight.Popup.OverflowMenu</item>
+        <item name="titleTextStyle">@style/TextAppearance.Material3.TitleLarge</item>
+        <item name="subtitleTextStyle">@style/TextAppearance.Material3.TitleMedium</item>
+        <item name="elevation">0dp</item>
+        <item name="android:itemTextAppearance">@style/TextAppearance.Material3.BodyLarge</item>
+    </style>
+
+    <style name="Sample.DarkActionBar" parent="@style/Widget.AppCompat.ActionBar">
+        <item name="background">@color/color_background</item>
+        <item name="android:popupTheme" tools:ignore="NewApi">@style/ThemeOverlay.AppCompat.Dark</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
+        <item name="actionOverflowMenuStyle">@style/Sample.DayNight.Popup.OverflowMenu</item>
+        <item name="titleTextStyle">@style/TextAppearance.Material3.TitleLarge</item>
+        <item name="subtitleTextStyle">@style/TextAppearance.Material3.TitleMedium</item>
+        <item name="elevation">0dp</item>
+        <item name="android:itemTextAppearance">@style/TextAppearance.Material3.BodyLarge</item>
+    </style>
+
+    <style name="Sample.DayNight.Popup.OverflowMenu" parent="ThemeOverlay.Material3">
+        <item name="overlapAnchor">false</item>
+        <item name="android:popupElevation" tools:ignore="NewApi">4dp</item>
+        <item name="android:dropDownHorizontalOffset">-14dp</item>
+        <item name="android:dropDownVerticalOffset">1px</item>
+        <item name="android:popupBackground">@drawable/rounded_overflow_shape</item>
+    </style>
+
+</resources>

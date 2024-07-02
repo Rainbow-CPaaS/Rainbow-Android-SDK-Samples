@@ -2,8 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="70dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:minHeight="70dp">
 
     <com.ale.rainbowx.rainbowavatar.AvatarCardView
         android:id="@+id/avatar"
@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="@id/avatar"
         app:layout_constraintBottom_toTopOf="@id/subtitle"
         app:layout_constraintStart_toEndOf="@id/avatar"
-        app:layout_constraintEnd_toStartOf="@id/timestamp"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:textAppearance="@style/TextAppearance.Material3.TitleMedium"/>
@@ -39,17 +39,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:textAppearance="@style/TextAppearance.Material3.LabelMedium"
-        android:maxLines="4"/>
-
-    <TextView
-        android:id="@+id/timestamp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/title"
-        app:layout_constraintStart_toEndOf="@id/title"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:textAppearance="@style/TextAppearance.Material3.LabelSmall"/>
+        android:textAppearance="@style/TextAppearance.Material3.LabelMedium"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

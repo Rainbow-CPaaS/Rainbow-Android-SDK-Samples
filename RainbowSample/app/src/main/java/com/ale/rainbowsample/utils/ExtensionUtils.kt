@@ -2,18 +2,23 @@ package com.ale.rainbowsample.utils
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.util.TypedValue
 import android.view.View
+import android.view.ViewTreeObserver.OnWindowFocusChangeListener
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.airbnb.lottie.LottieAnimationView
+import com.airbnb.lottie.LottieProperty
+import com.airbnb.lottie.model.KeyPath
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -79,4 +84,32 @@ fun Context.getThemeColor(resId: Int): Int {
     a.recycle()
 
     return color
+}
+
+fun View.focusAndOpenKeyboard() {
+    requestFocus()
+    if (hasWindowFocus()) {
+        openKeyboard()
+    } else {
+        getViewTreeObserver().addOnWindowFocusChangeListener(object : OnWindowFocusChangeListener {
+            override fun onWindowFocusChanged(hasFocus: Boolean) {
+                if (hasFocus) {
+                    openKeyboard()
+                    getViewTreeObserver().removeOnWindowFocusChangeListener(this)
+                }
+            }
+        })
+    }
+}
+
+fun View.openKeyboard() {
+    if (isFocused) {
+        post {
+            (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?)?.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
+        }
+    }
+}
+
+fun View.closeKeyboard() {
+    (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?)?.hideSoftInputFromWindow(windowToken, 0)
 }

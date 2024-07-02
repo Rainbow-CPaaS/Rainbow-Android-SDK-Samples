@@ -49,6 +49,7 @@
         <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest</item>
 
         <item name="android:navigationBarColor">?attr/colorSurfaceContainer</item>
+        <item name="actionBarStyle">@style/Sample.LightActionBar</item>
 
     </style>
 </resources>

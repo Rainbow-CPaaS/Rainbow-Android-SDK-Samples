@@ -6,13 +6,13 @@
 
     <com.ale.rainbowx.rainbowavatar.AvatarCardView
         android:id="@+id/favorite_avatar"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:presenceDimension="20dp"
+        app:presenceDimension="15dp"
         app:presencePosition="bottom_right" />
 
 

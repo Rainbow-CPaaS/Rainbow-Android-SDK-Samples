@@ -13,16 +13,16 @@
     </fragment>
 
     <fragment
+        android:id="@+id/navigation_contacts"
+        android:name="com.ale.rainbowsample.contacts.ContactsFragment"
+        android:label="@string/contacts"
+        tools:layout="@layout/fragment_contacts" />
+
+    <fragment
         android:id="@+id/navigation_rooms"
         android:name="com.ale.rainbowsample.rooms.RoomsFragment"
         android:label="@string/rooms"
         tools:layout="@layout/fragment_rooms" />
-
-    <fragment
-        android:id="@+id/navigation_contacts"
-        android:name="com.ale.rainbowsample.contacts.NotificationsFragment"
-        android:label="@string/contacts"
-        tools:layout="@layout/fragment_notifications" />
 
     <fragment
         android:id="@+id/navigation_profile"

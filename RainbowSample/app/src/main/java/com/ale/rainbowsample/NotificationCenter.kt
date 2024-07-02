@@ -10,10 +10,10 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
 import com.ale.infra.manager.IMMessage
-import com.ale.infra.manager.call.ITelephonyListener
-import com.ale.infra.manager.call.WebRTCCall
 import com.ale.infra.manager.channel.Channel
 import com.ale.infra.manager.channel.ChannelItem
+import com.ale.infra.manager.webrtc.call.ITelephonyListener
+import com.ale.infra.manager.webrtc.call.WebRTCCall
 import com.ale.infra.proxy.conversation.IRainbowConversation
 import com.ale.rainbowsdk.Channels
 import com.ale.rainbowsdk.Im
@@ -66,15 +66,15 @@ class NotificationCenter(private val applicationContext: Context) : Channels.ICh
         // Add some logic to know if you want to display a notification for this message
     }
 
-    override fun onCallAdded(call: WebRTCCall?, secondCall: Boolean) {
+    override fun onCallAdded(call: WebRTCCall, secondCall: Boolean) {
         // Add your logic to display an incoming call notification
     }
 
-    override fun onCallModified(call: WebRTCCall?, secondCall: Boolean) {
+    override fun onCallModified(call: WebRTCCall, secondCall: Boolean) {
         // Add your logic to handle call modified
     }
 
-    override fun onCallRemoved(call: WebRTCCall?, secondCall: Boolean) {
+    override fun onCallRemoved(call: WebRTCCall, secondCall: Boolean) {
         // Add your logic to remove the incoming call notification if necessary
     }
 }

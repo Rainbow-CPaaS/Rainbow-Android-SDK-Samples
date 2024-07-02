@@ -4,14 +4,18 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -19,12 +23,14 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.ale.rainbowsample.R
+import com.ale.rainbowsample.components.SearchToolbar
 import com.ale.rainbowsample.databinding.ActivityHomeBinding
 import com.ale.rainbowsample.utils.getThemeColor
+import com.ale.rainbowsdk.RainbowSdk
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.elevation.SurfaceColors
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(), SearchCallback {
 
     companion object {
         private const val REQUEST_CODE_PERMISSIONS = 50
@@ -32,6 +38,11 @@ class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var controller: NavController
+
+    private val listener = NavController.OnDestinationChangedListener { controller, destination, arguments ->
+        binding.avatar.isVisible = destination.id != R.id.navigation_profile
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge(
@@ -48,18 +59,18 @@ class HomeActivity : AppCompatActivity() {
         val navView: BottomNavigationView = binding.navView
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_home) as NavHostFragment
-        val navController = navHostFragment.navController
+        controller = navHostFragment.navController
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_conversations, R.id.navigation_rooms, R.id.navigation_contacts, R.id.navigation_profile
+                R.id.navigation_conversations, R.id.navigation_contacts, R.id.navigation_rooms
             )
         )
 
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+        setupActionBarWithNavController(controller, appBarConfiguration)
+        navView.setupWithNavController(controller)
 
-        ViewCompat.setOnApplyWindowInsetsListener(binding.toolbar) { view, windowInsets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.toolbarLayout) { view, windowInsets ->
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
             view.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 topMargin = insets.top
@@ -71,6 +82,11 @@ class HomeActivity : AppCompatActivity() {
 
         window.navigationBarColor = getThemeColor(com.google.android.material.R.attr.colorSurfaceContainer)
 
+        binding.avatar.displayContact(RainbowSdk().user().getConnectedUser())
+        binding.avatar.setOnClickListener {
+            controller.navigate(R.id.navigation_profile)
+        }
+
         askForPermissions()
     }
 
@@ -80,6 +96,16 @@ class HomeActivity : AppCompatActivity() {
                 || super.onSupportNavigateUp()
     }
 
+    override fun onResume() {
+        super.onResume()
+        controller.addOnDestinationChangedListener(listener)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        controller.addOnDestinationChangedListener(listener)
+    }
+
     private fun askForPermissions() {
         val requestPermissions = mutableListOf<String>()
 
@@ -87,8 +113,45 @@ class HomeActivity : AppCompatActivity() {
             requestPermissions.add(Manifest.permission.POST_NOTIFICATIONS)
         }
 
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_DENIED)
+            requestPermissions.add(Manifest.permission.READ_CONTACTS)
+
         if (requestPermissions.isNotEmpty()) {
             ActivityCompat.requestPermissions(this, requestPermissions.toTypedArray<String>(), REQUEST_CODE_PERMISSIONS)
         }
+    }
+
+    fun setAppBarScrollId(view: View) {
+        binding.appBar.liftOnScrollTargetViewId = view.id
+    }
+
+    override fun onSearchOpened() {
+        binding.searchToolbar.clearText()
+        binding.searchToolbar.display(binding.searchAction.x + (binding.searchAction.width / 2.0f), binding.searchAction.y + (binding.searchAction.height / 2.0f))
+        binding.navView.isVisible = false
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.navHostFragmentActivityHome) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.updateLayoutParams<ViewGroup.MarginLayoutParams> { bottomMargin = insets.bottom }
+            WindowInsetsCompat.CONSUMED
+        }
+    }
+
+    override fun onSearchClosed() {
+        binding.navView.isVisible = true
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.navHostFragmentActivityHome) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.updateLayoutParams<ViewGroup.MarginLayoutParams> { bottomMargin = 0 }
+            WindowInsetsCompat.CONSUMED
+        }
+    }
+
+    override fun getSearchToolbar(): SearchToolbar {
+        return binding.searchToolbar
+    }
+
+    override fun getSearchButton(): ImageView {
+        return binding.searchAction
     }
 }

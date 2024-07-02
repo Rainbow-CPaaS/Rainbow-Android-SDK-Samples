@@ -1,0 +1,31 @@
+[versions]
+appcompat = "1.7.0"
+constraintlayout = "2.1.4"
+coreKtx = "1.13.1"
+firebaseBom = "33.1.1"
+lifecycle = "2.8.2"
+lottie = "6.4.1"
+material = "1.12.0"
+navigationFragmentKtx = "2.7.7"
+rainbowsdk = "2.52.0"
+androidGradlePlugin = "8.2.2"
+kotlinGradlePlugin = "1.9.10"
+googleServicesGradlePlugin = "4.4.2"
+
+[libraries]
+appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
+core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+lifecycle-livedata = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycle"}
+lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
+material = { module = "com.google.android.material:material", version.ref = "material" }
+navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationFragmentKtx" }
+rainbowsdk = { module = "com.ale:rainbowsdk", version.ref = "rainbowsdk" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinGradlePlugin" }
+google-gms-services = { id = "com.google.gms.google-services", version.ref = "googleServicesGradlePlugin" }
