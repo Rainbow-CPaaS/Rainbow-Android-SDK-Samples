@@ -34,12 +34,12 @@ class ContactsAdapter : androidx.recyclerview.widget.ListAdapter<ContactUiState,
 
     override fun onViewAttachedToWindow(holder: RecyclerView.ViewHolder) {
         if (holder is ContactViewHolder)
-            holder.addConversationObserver()
+            holder.addContactObserver()
     }
 
     override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
         if (holder is ContactViewHolder)
-            holder.removeConversationObserver()
+            holder.removeContactObserver()
     }
 
     internal inner class ContactViewHolder(private val binding: ContactAdapterItemBinding) : RecyclerView.ViewHolder(binding.root), IRainbowContact.IContactListener {
@@ -71,11 +71,11 @@ class ContactsAdapter : androidx.recyclerview.widget.ListAdapter<ContactUiState,
             uiHandler.post { updateLayout() }
         }
 
-        fun addConversationObserver() {
+        fun addContactObserver() {
             contact.registerChangeListener(this)
         }
 
-        fun removeConversationObserver() {
+        fun removeContactObserver() {
             contact.unregisterChangeListener(this)
         }
     }

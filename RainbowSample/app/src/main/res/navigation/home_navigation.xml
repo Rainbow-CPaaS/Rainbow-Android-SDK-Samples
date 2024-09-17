@@ -29,5 +29,10 @@
         android:name="com.ale.rainbowsample.profile.ProfileFragment"
         android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/navigation_callLogs"
+        android:name="com.ale.rainbowsample.calllogs.CallLogsFragment"
+        android:label="fragment_call_logs"
+        tools:layout="@layout/fragment_call_logs" />
 
 </navigation>

@@ -94,6 +94,7 @@ class ContactsFragment : Fragment() {
 
     private fun initializeSearch() {
         val searchCallback =  (requireActivity() as? SearchCallback) ?: return
+        searchCallback.getSearchButton().isVisible = true
         searchCallback.getSearchButton().setOnClickListener {
             searchCallback.onSearchOpened()
             searchCallback.getSearchToolbar().listener = object : SearchToolbar.Listener {

@@ -61,21 +61,6 @@ class ConversationsFragment : Fragment() {
             favoritesAdapter.submitList(uiState.favorites)
         }
 
-        requireActivity().addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.conversations_list_menu, menu)
-            }
-
-            override fun onPrepareMenu(menu: Menu) {
-
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-
-                return false
-            }
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
-
         requireActivity().onBackPressedDispatcher.addCallback(getViewLifecycleOwner(), object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (!closeSearchIfNeeded()) {
@@ -89,6 +74,7 @@ class ConversationsFragment : Fragment() {
 
     private fun initializeSearch() {
         val searchCallback =  (requireActivity() as? SearchCallback) ?: return
+        searchCallback.getSearchButton().isVisible = true
         searchCallback.getSearchButton().setOnClickListener {
             searchCallback.onSearchOpened()
             searchCallback.getSearchToolbar().listener = object : SearchToolbar.Listener {

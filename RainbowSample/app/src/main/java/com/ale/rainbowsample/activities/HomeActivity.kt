@@ -26,6 +26,7 @@ import com.ale.rainbowsample.R
 import com.ale.rainbowsample.components.SearchToolbar
 import com.ale.rainbowsample.databinding.ActivityHomeBinding
 import com.ale.rainbowsample.utils.getThemeColor
+import com.ale.rainbowsdk.CallLogs
 import com.ale.rainbowsdk.RainbowSdk
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.elevation.SurfaceColors
@@ -42,6 +43,12 @@ class HomeActivity : AppCompatActivity(), SearchCallback {
 
     private val listener = NavController.OnDestinationChangedListener { controller, destination, arguments ->
         binding.avatar.isVisible = destination.id != R.id.navigation_profile
+    }
+
+    private val missedCallCounterListener = object : CallLogs.ICallLogsListener {
+        override fun notifyMissedCallCounterChange() {
+            runOnUiThread { displayMissedCallCounter() }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,7 +70,7 @@ class HomeActivity : AppCompatActivity(), SearchCallback {
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_conversations, R.id.navigation_contacts, R.id.navigation_rooms
+                R.id.navigation_conversations, R.id.navigation_contacts, R.id.navigation_rooms, R.id.navigation_callLogs
             )
         )
 
@@ -99,11 +106,14 @@ class HomeActivity : AppCompatActivity(), SearchCallback {
     override fun onResume() {
         super.onResume()
         controller.addOnDestinationChangedListener(listener)
+        RainbowSdk().callLogs().registerCallLogsListener(missedCallCounterListener)
+        displayMissedCallCounter()
     }
 
     override fun onPause() {
         super.onPause()
         controller.addOnDestinationChangedListener(listener)
+        RainbowSdk().callLogs().unregisterCallLogsListener(missedCallCounterListener)
     }
 
     private fun askForPermissions() {
@@ -153,5 +163,17 @@ class HomeActivity : AppCompatActivity(), SearchCallback {
 
     override fun getSearchButton(): ImageView {
         return binding.searchAction
+    }
+
+    private fun displayMissedCallCounter() {
+        val counter = RainbowSdk().callLogs().missedCounter
+        val badge = binding.navView.getOrCreateBadge(R.id.navigation_callLogs)
+
+        if (counter > 0) {
+            badge.isVisible = true
+            badge.number = counter
+        } else {
+            badge.isVisible = false
+        }
     }
 }

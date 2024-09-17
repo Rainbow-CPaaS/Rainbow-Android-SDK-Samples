@@ -68,5 +68,12 @@
     <string name="phone_contacts">Phone contacts</string>
     <string name="phone_book_contacts">Phone book contacts</string>
     <string name="rainbow_contacts">Rainbow contacts</string>
+    <string name="history">History</string>
+    <string name="filter">Filter</string>
+    <string name="filter_call_logs">Filter Call Logs</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="all">All</string>
+    <string name="missed">Missed</string>
 
 </resources>

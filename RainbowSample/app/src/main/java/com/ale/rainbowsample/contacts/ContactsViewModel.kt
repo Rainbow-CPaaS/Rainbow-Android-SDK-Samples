@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.update
 
 class ContactsViewModel : ViewModel() {
 
-    private val rosterChangeListener = IItemListChangeListener { onContactChanged() }
+    private val rosterChangeListener = IItemListChangeListener { onContactsChanged() }
 
     private val _uiState = MutableStateFlow(
         ContactsUiState(
@@ -20,17 +20,14 @@ class ContactsViewModel : ViewModel() {
 
     init {
         RainbowSdk().contacts().roster.registerChangeListener(rosterChangeListener)
-        onContactChanged()
+        onContactsChanged()
     }
 
     override fun onCleared() {
         RainbowSdk().contacts().roster.unregisterChangeListener(rosterChangeListener)
     }
 
-    private fun onContactChanged() {
-
-        println("**** contact changed")
-
+    private fun onContactsChanged() {
         val contacts = RainbowSdk().contacts().roster.copyOfDataList
 
         _uiState.update {

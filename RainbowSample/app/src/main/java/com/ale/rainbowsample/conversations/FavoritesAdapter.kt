@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ale.infra.contact.IRainbowContact
 import com.ale.infra.contact.RainbowPresence
+import com.ale.infra.manager.favorites.IRainbowFavorite
 import com.ale.rainbowsample.databinding.FavoriteAdapterItemBinding
 import com.ale.rainbowx.rainbowadapter.RainbowViewHolder
 
@@ -35,40 +36,39 @@ class FavoritesAdapter : ListAdapter<FavoriteUiState, RecyclerView.ViewHolder>(F
     internal class FavoriteViewHolder(private val binding: FavoriteAdapterItemBinding) : RainbowViewHolder<FavoriteUiState>(binding), IRainbowContact.IContactListener {
 
         private val uiHandler = Handler(Looper.getMainLooper())
-        private var contact: IRainbowContact? = null
+        private lateinit var favorite: IRainbowFavorite
 
         override fun bind(data: FavoriteUiState, onClick: ((FavoriteUiState, Int) -> Unit)?, onLongClick: ((FavoriteUiState, Int) -> Boolean)?) {
-            contact = data.favorite.contact
+            favorite = data.favorite
+            updateLayout()
+        }
 
-            data.favorite.contact?.let { contact ->
+        private fun updateLayout() {
+            favorite.contact?.let { contact ->
                 binding.favoriteAvatar.displayContact(contact)
-                displayPresence()
+                binding.favoriteAvatar.displayPresence(contact)
             }
 
-            data.favorite.room?.let { room ->
+            favorite.room?.let { room ->
                 binding.favoriteAvatar.displayRoom(room)
             }
         }
 
-        private fun displayPresence() {
-            binding.favoriteAvatar.displayPresence(contact)
-        }
-
         fun addObserver() {
-            contact?.registerChangeListener(this)
+            favorite.contact?.registerChangeListener(this)
         }
 
         fun removeObserver() {
-            contact?.unregisterChangeListener(this)
+            favorite.contact?.unregisterChangeListener(this)
         }
 
 
         override fun contactUpdated(updatedContact: IRainbowContact) {
-
+            uiHandler.post { updateLayout() }
         }
 
         override fun onPresenceChanged(contact: IRainbowContact, presence: RainbowPresence?) {
-            uiHandler.post { displayPresence() }
+            uiHandler.post { updateLayout() }
         }
     }
 

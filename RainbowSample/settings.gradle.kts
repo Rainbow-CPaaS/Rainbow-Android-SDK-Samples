@@ -13,6 +13,7 @@ dependencyResolutionManagement {
         mavenCentral()
         mavenLocal()
         maven("https://maven.openrainbow.io")
+        maven("https://jitpack.io")
     }
 }
 

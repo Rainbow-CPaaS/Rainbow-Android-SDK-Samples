@@ -23,6 +23,8 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.Date
+import java.util.Locale
+import java.util.concurrent.TimeUnit
 
 fun Fragment.hideKeyboard() = activity?.hideKeyboard()
 
@@ -112,4 +114,22 @@ fun View.openKeyboard() {
 
 fun View.closeKeyboard() {
     (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?)?.hideSoftInputFromWindow(windowToken, 0)
+}
+
+fun Date.toRelativeTimeString(): String {
+    val now = Date()
+    val diffInMillis = now.time - this.time
+
+    val minutes = TimeUnit.MILLISECONDS.toMinutes(diffInMillis)
+    val hours = TimeUnit.MILLISECONDS.toHours(diffInMillis)
+    val days = TimeUnit.MILLISECONDS.toDays(diffInMillis)
+
+    return when {
+        minutes < 1 -> "just now"
+        minutes < 60 -> "$minutes minute${if (minutes > 1) "s" else ""} ago"
+        hours < 24 -> "$hours hour${if (hours > 1) "s" else ""} ago"
+        days == 1L -> "yesterday"
+        days < 7 -> "$days day${if (days > 1) "s" else ""} ago"
+        else -> java.text.SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(this)
+    }
 }
