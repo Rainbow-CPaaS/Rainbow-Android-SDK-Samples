@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.ale.infra.contact.IRainbowContact
 import com.ale.rainbow.RBLog
+import com.ale.rainbowsample.activities.SearchCallback
 import com.ale.rainbowsample.databinding.FragmentProfileBinding
 import com.ale.rainbowsample.utils.collectLifecycleFlow
 import com.ale.rainbowsdk.RainbowSdk
@@ -71,6 +72,8 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        (requireActivity() as? SearchCallback)?.getSearchButton()?.isVisible = false
 
         binding.userAvatar.displayContact(user)
         binding.userAvatar.displayPresence(user)
