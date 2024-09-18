@@ -23,6 +23,7 @@ import com.ale.rainbowsample.databinding.FragmentConversationsBinding
 import com.ale.rainbowsample.utils.HorizontalMarginItemDecoration
 import com.ale.rainbowsample.utils.collectLifecycleFlow
 import com.ale.rainbowsample.utils.viewLifecycle
+import com.ale.rainbowsdk.RainbowSdk
 import com.ale.util.dp
 import com.google.android.material.divider.MaterialDividerItemDecoration
 

@@ -57,4 +57,6 @@ dependencies {
     implementation(libs.navigation.ui.ktx)
 
     implementation(libs.lottie)
+    implementation(libs.legacy.support.v4)
+    implementation(libs.fragment.ktx)
 }

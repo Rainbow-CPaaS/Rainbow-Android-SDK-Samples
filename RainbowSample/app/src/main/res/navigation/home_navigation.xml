@@ -16,7 +16,12 @@
         android:id="@+id/navigation_contacts"
         android:name="com.ale.rainbowsample.contacts.ContactsFragment"
         android:label="@string/contacts"
-        tools:layout="@layout/fragment_contacts" />
+        tools:layout="@layout/fragment_contacts" >
+        <action
+            android:id="@+id/action_navigation_contacts_to_navigation_create_group"
+            app:destination="@id/navigation_create_group"
+            app:enterAnim="@anim/slide_in_from_right" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_rooms"
@@ -29,10 +34,17 @@
         android:name="com.ale.rainbowsample.profile.ProfileFragment"
         android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
+
     <fragment
         android:id="@+id/navigation_callLogs"
         android:name="com.ale.rainbowsample.calllogs.CallLogsFragment"
         android:label="fragment_call_logs"
         tools:layout="@layout/fragment_call_logs" />
+
+    <fragment
+        android:id="@+id/navigation_create_group"
+        android:name="com.ale.rainbowsample.group.CreateGroupFragment"
+        android:label="@string/create_a_group"
+        tools:layout="@layout/fragment_create_group" />
 
 </navigation>

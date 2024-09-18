@@ -4,17 +4,24 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.MenuProvider
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieProperty
 import com.airbnb.lottie.model.KeyPath
+import com.ale.rainbowsample.R
 import com.ale.rainbowsample.activities.HomeActivity
 import com.ale.rainbowsample.activities.SearchCallback
 import com.ale.rainbowsample.components.SearchToolbar
@@ -73,6 +80,21 @@ class ContactsFragment : Fragment() {
         collectLifecycleFlow(searchViewModel.searchResult) {
             searchContactsAdapter.submitList(it)
         }
+
+
+        requireActivity().addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.contacts_list_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                if (menuItem.itemId == R.id.new_group_item) {
+                    findNavController().navigate(R.id.action_navigation_contacts_to_navigation_create_group)
+                }
+                return false
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+
 
         requireActivity().onBackPressedDispatcher.addCallback(getViewLifecycleOwner(), object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {

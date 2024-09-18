@@ -5,6 +5,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ale.infra.contact.IRainbowContact
@@ -13,7 +14,10 @@ import com.ale.rainbowsample.R
 import com.ale.rainbowsample.databinding.ContactAdapterItemBinding
 import com.ale.rainbowsample.utils.presenceAsString
 
-class ContactsAdapter : androidx.recyclerview.widget.ListAdapter<ContactUiState, RecyclerView.ViewHolder>(ContactsDiffCallBack()) {
+class ContactsAdapter(
+    val onItemClick: ((IRainbowContact) -> Unit)? = null,
+    val displayCallAction: Boolean = true
+) : androidx.recyclerview.widget.ListAdapter<ContactUiState, RecyclerView.ViewHolder>(ContactsDiffCallBack()) {
 
     override fun getItemViewType(position: Int): Int {
         return R.layout.contact_adapter_item
@@ -56,10 +60,12 @@ class ContactsAdapter : androidx.recyclerview.widget.ListAdapter<ContactUiState,
         }
 
         private fun updateLayout() {
+            onItemClick?.let { binding.root.setOnClickListener { it(contact) } }
             binding.title.text = contact.getDisplayName(context.getString(R.string.unknown))
             binding.avatar.displayContact(contact)
             binding.avatar.displayPresence(contact)
             binding.subtitle.text = contact.presenceAsString(context)
+            binding.callButton.isVisible = displayCallAction
         }
 
         override fun contactUpdated(updatedContact: IRainbowContact) {

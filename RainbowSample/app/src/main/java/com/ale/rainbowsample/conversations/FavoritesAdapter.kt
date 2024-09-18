@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ale.infra.contact.IRainbowContact
 import com.ale.infra.contact.RainbowPresence
 import com.ale.infra.manager.favorites.IRainbowFavorite
+import com.ale.infra.manager.room.IRainbowRoom
+import com.ale.infra.manager.room.Room
+import com.ale.infra.manager.room.RoomListener
 import com.ale.rainbowsample.databinding.FavoriteAdapterItemBinding
 import com.ale.rainbowx.rainbowadapter.RainbowViewHolder
 
@@ -33,7 +36,7 @@ class FavoritesAdapter : ListAdapter<FavoriteUiState, RecyclerView.ViewHolder>(F
             holder.removeObserver()
     }
 
-    internal class FavoriteViewHolder(private val binding: FavoriteAdapterItemBinding) : RainbowViewHolder<FavoriteUiState>(binding), IRainbowContact.IContactListener {
+    internal class FavoriteViewHolder(private val binding: FavoriteAdapterItemBinding) : RainbowViewHolder<FavoriteUiState>(binding), IRainbowContact.IContactListener, RoomListener {
 
         private val uiHandler = Handler(Looper.getMainLooper())
         private lateinit var favorite: IRainbowFavorite
@@ -56,10 +59,12 @@ class FavoritesAdapter : ListAdapter<FavoriteUiState, RecyclerView.ViewHolder>(F
 
         fun addObserver() {
             favorite.contact?.registerChangeListener(this)
+            favorite.room?.registerChangeListener(this)
         }
 
         fun removeObserver() {
             favorite.contact?.unregisterChangeListener(this)
+            favorite.room?.unregisterChangeListener(this)
         }
 
 
@@ -70,6 +75,10 @@ class FavoritesAdapter : ListAdapter<FavoriteUiState, RecyclerView.ViewHolder>(F
         override fun onPresenceChanged(contact: IRainbowContact, presence: RainbowPresence?) {
             uiHandler.post { updateLayout() }
         }
+
+        override fun roomUpdated(updatedRoom: Room) {
+            uiHandler.post { updateLayout() }
+        }
     }
 
     private class FavoriteDiffCallBack : DiffUtil.ItemCallback<FavoriteUiState>() {
@@ -78,7 +87,7 @@ class FavoritesAdapter : ListAdapter<FavoriteUiState, RecyclerView.ViewHolder>(F
         }
 
         override fun areContentsTheSame(oldItem: FavoriteUiState, newItem: FavoriteUiState): Boolean {
-            return oldItem.position == newItem.position
+            return oldItem.position == newItem.position && oldItem.name == newItem.name
         }
     }
 }

@@ -41,8 +41,15 @@ class HomeActivity : AppCompatActivity(), SearchCallback {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var controller: NavController
 
-    private val listener = NavController.OnDestinationChangedListener { controller, destination, arguments ->
-        binding.avatar.isVisible = destination.id != R.id.navigation_profile
+    private val listener = NavController.OnDestinationChangedListener { _, destination, _ ->
+        binding.avatar.isVisible = destination.id in appBarConfiguration.topLevelDestinations
+        binding.navView.isVisible = destination.id in appBarConfiguration.topLevelDestinations
+
+        if (destination.id !in appBarConfiguration.topLevelDestinations) {
+            binding.title.text = destination.label
+        } else {
+            binding.title.text = getString(R.string.app_name)
+        }
     }
 
     private val missedCallCounterListener = object : CallLogs.ICallLogsListener {

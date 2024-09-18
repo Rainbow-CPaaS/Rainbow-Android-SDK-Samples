@@ -60,7 +60,7 @@
     <string name="search">Search</string>
     <string name="close">Close</string>
     <string name="clear">Clear</string>
-    <string name="new_group">New group</string>
+    <string name="new_group">Create group</string>
     <string name="there_are_no_results">There are no results</string>
     <string name="network_contact_title">Contacts in my network</string>
     <string name="my_contact_groups">My contact groups</string>
@@ -75,5 +75,9 @@
     <string name="cancel">Cancel</string>
     <string name="all">All</string>
     <string name="missed">Missed</string>
+    <string name="name">Name</string>
+    <string name="description">Description</string>
+    <string name="create">Create</string>
+    <string name="create_a_group">Create a group</string>
 
 </resources>

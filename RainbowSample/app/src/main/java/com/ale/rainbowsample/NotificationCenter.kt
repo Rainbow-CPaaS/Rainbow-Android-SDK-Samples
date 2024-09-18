@@ -62,7 +62,7 @@ class NotificationCenter(private val applicationContext: Context) : Channels.ICh
         }
     }
 
-    override fun onImReceived(conversation: IRainbowConversation, message: IMMessage?) {
+    override fun onImReceived(conversation: IRainbowConversation, message: IMMessage) {
         // Add some logic to know if you want to display a notification for this message
     }
 
