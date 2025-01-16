@@ -79,5 +79,10 @@
     <string name="description">Description</string>
     <string name="create">Create</string>
     <string name="create_a_group">Create a group</string>
+    <string name="send_invitation_success">Invitation sent successfully</string>
+    <string name="send_invitation_failure">Invitation failed</string>
+    <string name="remove_contact_success">Contact successfully removed</string>
+    <string name="remove_contact_failure">An error has occurred while removing contact</string>
+    <string name="pending_invitation">An invitation is already in progress</string>
 
 </resources>

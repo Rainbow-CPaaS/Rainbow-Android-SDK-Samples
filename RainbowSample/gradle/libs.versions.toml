@@ -1,18 +1,18 @@
 [versions]
 appcompat = "1.7.0"
-constraintlayout = "2.1.4"
-coreKtx = "1.13.1"
-firebaseBom = "33.3.0"
-lifecycle = "2.8.5"
+constraintlayout = "2.2.0"
+coreKtx = "1.15.0"
+firebaseBom = "33.7.0"
+lifecycle = "2.8.7"
 lottie = "6.4.1"
 material = "1.12.0"
-navigationFragmentKtx = "2.8.0"
-rainbowsdk = "2.57.0-beta.0"
-androidGradlePlugin = "8.2.2"
-kotlinGradlePlugin = "1.9.10"
+navigationFragmentKtx = "2.8.5"
+rainbowsdk = "2.61.0-beta.1"
+androidGradlePlugin = "8.7.3"
+kotlinGradlePlugin = "2.1.0"
 googleServicesGradlePlugin = "4.4.2"
 legacySupportV4 = "1.0.0"
-fragmentKtx = "1.8.3"
+fragmentKtx = "1.8.5"
 
 [libraries]
 appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }

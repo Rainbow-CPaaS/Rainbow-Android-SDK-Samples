@@ -29,7 +29,9 @@ import com.ale.rainbowsample.databinding.FragmentContactsBinding
 import com.ale.rainbowsample.search.SearchViewModel
 import com.ale.rainbowsample.utils.collectLifecycleFlow
 import com.ale.rainbowsample.utils.getThemeColor
+import com.ale.rainbowsample.utils.showSnackBar
 import com.ale.rainbowsample.utils.viewLifecycle
+import com.ale.rainbowsdk.RainbowSdk
 import com.ale.rainbowx.conferencerecyclerview.removeAllItemDecorations
 import com.google.android.material.divider.MaterialDividerItemDecoration
 
@@ -81,6 +83,16 @@ class ContactsFragment : Fragment() {
             searchContactsAdapter.submitList(it)
         }
 
+        collectLifecycleFlow(contactsViewModel.eventSharedFlow) { event ->
+            when (event) {
+                ContactsViewModel.Event.INVITATION_SEND_SUCCESS -> showSnackBar(getString(R.string.send_invitation_success))
+                ContactsViewModel.Event.INVITATION_SEND_FAILURE -> showSnackBar(getString(R.string.send_invitation_failure))
+                ContactsViewModel.Event.REMOVE_SUCCESS -> showSnackBar(getString(R.string.remove_contact_success))
+                ContactsViewModel.Event.REMOVE_FAILURE -> showSnackBar(getString(R.string.remove_contact_failure))
+                ContactsViewModel.Event.PENDING_INVITATION -> showSnackBar(getString(R.string.pending_invitation))
+            }
+        }
+
 
         requireActivity().addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -106,11 +118,15 @@ class ContactsFragment : Fragment() {
     }
 
     private fun initializeSearchContactsAdapter() {
-        searchContactsAdapter = SearchContactsAdapter()
+        searchContactsAdapter = SearchContactsAdapter(
+            onInviteUser = { contact -> contactsViewModel.inviteContactToJoinRoster(contact) }
+        )
     }
 
     private fun initializeContactsAdapter() {
-        contactsAdapter = ContactsAdapter()
+        contactsAdapter = ContactsAdapter(
+            onRemoveContact = { contact -> contactsViewModel.removeContactFromRoster(contact) }
+        )
         setAdapter(contactsAdapter)
     }
 

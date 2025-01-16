@@ -16,6 +16,7 @@ import com.ale.rainbowsample.utils.presenceAsString
 
 class ContactsAdapter(
     val onItemClick: ((IRainbowContact) -> Unit)? = null,
+    val onRemoveContact: ((IRainbowContact) -> Unit)? = null,
     val displayCallAction: Boolean = true
 ) : androidx.recyclerview.widget.ListAdapter<ContactUiState, RecyclerView.ViewHolder>(ContactsDiffCallBack()) {
 
@@ -66,6 +67,7 @@ class ContactsAdapter(
             binding.avatar.displayPresence(contact)
             binding.subtitle.text = contact.presenceAsString(context)
             binding.callButton.isVisible = displayCallAction
+            binding.removeNetworkButton.setOnClickListener { onRemoveContact?.invoke(contact) }
         }
 
         override fun contactUpdated(updatedContact: IRainbowContact) {

@@ -4,6 +4,8 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -94,7 +96,15 @@ class HomeActivity : AppCompatActivity(), SearchCallback {
             WindowInsetsCompat.CONSUMED
         }
 
-        window.navigationBarColor = getThemeColor(com.google.android.material.R.attr.colorSurfaceContainer)
+        ViewCompat.setOnApplyWindowInsetsListener(binding.navHostFragmentActivityHome) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            if (!binding.navView.isVisible) {
+                v.updateLayoutParams<ViewGroup.MarginLayoutParams> { bottomMargin = insets.bottom }
+            } else {
+                v.updateLayoutParams<ViewGroup.MarginLayoutParams> { bottomMargin = 0 }
+            }
+            WindowInsetsCompat.CONSUMED
+        }
 
         binding.avatar.displayContact(RainbowSdk().user().getConnectedUser())
         binding.avatar.setOnClickListener {
@@ -146,22 +156,12 @@ class HomeActivity : AppCompatActivity(), SearchCallback {
         binding.searchToolbar.clearText()
         binding.searchToolbar.display(binding.searchAction.x + (binding.searchAction.width / 2.0f), binding.searchAction.y + (binding.searchAction.height / 2.0f))
         binding.navView.isVisible = false
-
-        ViewCompat.setOnApplyWindowInsetsListener(binding.navHostFragmentActivityHome) { v, windowInsets ->
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.updateLayoutParams<ViewGroup.MarginLayoutParams> { bottomMargin = insets.bottom }
-            WindowInsetsCompat.CONSUMED
-        }
+        invalidateOptionsMenu()
     }
 
     override fun onSearchClosed() {
         binding.navView.isVisible = true
-
-        ViewCompat.setOnApplyWindowInsetsListener(binding.navHostFragmentActivityHome) { v, windowInsets ->
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.updateLayoutParams<ViewGroup.MarginLayoutParams> { bottomMargin = 0 }
-            WindowInsetsCompat.CONSUMED
-        }
+        ViewCompat.requestApplyInsets(binding.navHostFragmentActivityHome)
     }
 
     override fun getSearchToolbar(): SearchToolbar {

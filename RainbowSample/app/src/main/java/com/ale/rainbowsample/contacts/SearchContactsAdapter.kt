@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.ale.infra.contact.IRainbowContact
 import com.ale.rainbowsample.R
 import com.ale.rainbowsample.databinding.SearchAdapterHeaderItemBinding
 import com.ale.rainbowsample.databinding.SearchContactCompanyItemBinding
@@ -18,7 +19,9 @@ import com.ale.rainbowsample.search.ContactSearchKey
 import com.ale.rainbowsample.search.ContactSearchSectionKey
 import com.ale.rainbowsample.utils.presenceAsString
 
-class SearchContactsAdapter : ListAdapter<ContactSearchKey, RecyclerView.ViewHolder>(SearchContactsDiffCallBack()) {
+class SearchContactsAdapter(
+    val onInviteUser: ((IRainbowContact) -> Unit)? = null
+) : ListAdapter<ContactSearchKey, RecyclerView.ViewHolder>(SearchContactsDiffCallBack()) {
 
     override fun getItemViewType(position: Int): Int {
         return when(getItem(position)) {
@@ -132,6 +135,7 @@ class SearchContactsAdapter : ListAdapter<ContactSearchKey, RecyclerView.ViewHol
         fun bind(data: ContactSearchKey.CompanyContact) {
             binding.title.text = data.contact.getDisplayName(context.getString(R.string.unknown))
             binding.avatar.displayContact(data.contact)
+            binding.inviteButton.setOnClickListener { onInviteUser?.invoke(data.contact) }
         }
     }
 
@@ -163,6 +167,7 @@ class SearchContactsAdapter : ListAdapter<ContactSearchKey, RecyclerView.ViewHol
             binding.avatar.displayContact(data.contact)
             binding.title.text = data.contact.getDisplayName(context.getString(R.string.unknown))
             binding.subtitle.text = data.contact.companyName
+            binding.inviteButton.setOnClickListener { onInviteUser?.invoke(data.contact) }
         }
     }
 }
